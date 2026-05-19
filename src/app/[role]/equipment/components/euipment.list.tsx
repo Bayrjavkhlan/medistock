@@ -1,6 +1,7 @@
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import {
+  Box,
   IconButton,
   Paper,
   Table,
@@ -11,6 +12,7 @@ import {
   TablePagination,
   TableRow,
   Tooltip,
+  Typography,
 } from "@mui/material";
 
 import TableSkeleton from "@/components/forms/table/tableSkeleton";
@@ -45,7 +47,7 @@ export default function EquipmentListTable({
   // onSort,
   loading,
 }: EquipmentListTableProps) {
-  const columnCount = 7; // Нэр, ангилал, сериал дугаар, хариуцагч, эмнэлэг, төлөв, үйлдэл
+  const columnCount = 7;
   return (
     <Paper
       sx={{
@@ -71,11 +73,11 @@ export default function EquipmentListTable({
         >
           <TableHead>
             <TableRow>
-              <TableCell>Нэр</TableCell>
+              <TableCell>Тоног төхөөрөмж</TableCell>
               <TableCell>Ангилал</TableCell>
               <TableCell>Сериал дугаар</TableCell>
-              <TableCell>Хариуцагч</TableCell>
-              <TableCell>Эмнэлэг</TableCell>
+              <TableCell>Харьяалагдах эмнэлэг</TableCell>
+              <TableCell>Хариуцсан ажилтан</TableCell>
               <TableCell>Төлөв</TableCell>
               <TableCell align="right">Үйлдэл</TableCell>
             </TableRow>
@@ -95,8 +97,39 @@ export default function EquipmentListTable({
                   <TableCell>{equipment.name ?? "-"}</TableCell>
                   <TableCell>{equipment.category ?? "-"}</TableCell>
                   <TableCell>{equipment.serialNo ?? "-"}</TableCell>
-                  <TableCell>{equipment.assignedTo?.name ?? "-"}</TableCell>
-                  <TableCell>{equipment.hospital?.name ?? "-"}</TableCell>
+                  <TableCell>
+                    <Box>
+                      <Typography variant="body2" fontWeight={600}>
+                        {equipment.hospital?.name ?? "Эмнэлэг бүртгэлгүй"}
+                      </Typography>
+                      {equipment.hospital?.email ? (
+                        <Typography variant="caption" color="text.secondary">
+                          {equipment.hospital.email}
+                        </Typography>
+                      ) : null}
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box>
+                      <Typography variant="body2" fontWeight={600}>
+                        {equipment.assignedTo?.name ?? "Хариуцагч томилоогүй"}
+                      </Typography>
+                      {equipment.assignedTo?.email ? (
+                        <Typography
+                          variant="caption"
+                          color="text.secondary"
+                          display="block"
+                        >
+                          {equipment.assignedTo.email}
+                        </Typography>
+                      ) : null}
+                      {equipment.assignedTo?.phone ? (
+                        <Typography variant="caption" color="text.secondary">
+                          {equipment.assignedTo.phone}
+                        </Typography>
+                      ) : null}
+                    </Box>
+                  </TableCell>
                   <TableCell>{equipment.state ?? "-"}</TableCell>
                   <TableCell align="right">
                     {canUpdate ? (
