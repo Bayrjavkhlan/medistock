@@ -19,7 +19,7 @@ export default function DashboardHero({
     <Box
       sx={{
         p: { xs: 3, md: 4 },
-        borderRadius: 4,
+        borderRadius: "0.75rem",
         color: "#e2e8f0",
         background:
           "linear-gradient(135deg, #0f172a 0%, #164e63 45%, #0f766e 100%)",

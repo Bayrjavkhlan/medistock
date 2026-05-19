@@ -95,7 +95,7 @@ export default function AdminLocationMap({
         sx={{
           border: "1px dashed",
           borderColor: "divider",
-          borderRadius: 4,
+          borderRadius: "0.75rem",
           p: 4,
           textAlign: "center",
           bgcolor: "background.paper",
@@ -115,7 +115,7 @@ export default function AdminLocationMap({
   return (
     <Box
       sx={{
-        borderRadius: 4,
+        borderRadius: "0.75rem",
         overflow: "hidden",
         border: "1px solid",
         borderColor: "divider",
@@ -212,7 +212,7 @@ export default function AdminLocationMap({
             bottom: 16,
             zIndex: 500,
             bgcolor: "rgba(255,255,255,0.94)",
-            borderRadius: 2,
+            borderRadius: "0.75rem",
             px: 1.5,
             py: 1,
             boxShadow: "0 8px 24px rgba(15,23,42,0.18)",

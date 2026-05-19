@@ -36,7 +36,7 @@ export default function DashboardActivityList({
     return (
       <Box
         sx={{
-          borderRadius: 3,
+          borderRadius: "0.75rem",
           border: "1px dashed",
           borderColor: "divider",
           p: 3,
@@ -61,7 +61,7 @@ export default function DashboardActivityList({
             key={item.id}
             sx={{
               p: 2,
-              borderRadius: 3,
+              borderRadius: "0.75rem",
               border: "1px solid",
               borderColor: "divider",
               bgcolor: "rgba(248,250,252,0.7)",

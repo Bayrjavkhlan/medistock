@@ -22,7 +22,7 @@ export default function MetricsGrid({ items }: MetricsGridProps) {
             sx={{
               border: "1px solid",
               borderColor: "divider",
-              borderRadius: 2,
+              borderRadius: "0.75rem",
               p: 2.5,
             }}
           >

@@ -57,7 +57,7 @@ export default function StaffListTable({
       sx={{
         width: "100%",
         overflow: "hidden",
-        borderRadius: 3,
+        borderRadius: "0.75rem",
         border: "1px solid",
         borderColor: "divider",
       }}

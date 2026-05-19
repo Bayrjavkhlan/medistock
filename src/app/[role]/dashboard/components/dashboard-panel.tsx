@@ -21,7 +21,7 @@ export default function DashboardPanel({
       elevation={0}
       sx={{
         p: { xs: 2.5, md: 3 },
-        borderRadius: 4,
+        borderRadius: "0.75rem",
         border: "1px solid",
         borderColor: "divider",
         bgcolor: "background.paper",

@@ -157,7 +157,7 @@ export default function HospitalDashboard({ data }: HospitalDashboardProps) {
                     ? "warning"
                     : "info"
               }
-              sx={{ borderRadius: 3 }}
+              sx={{ borderRadius: "0.75rem" }}
             >
               <strong>{item.title}</strong>
               <br />

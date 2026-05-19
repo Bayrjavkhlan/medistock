@@ -124,7 +124,7 @@ export default function AdminDashboard({ data }: AdminDashboardProps) {
                         ? "warning"
                         : "info"
                   }
-                  sx={{ borderRadius: 3 }}
+                  sx={{ borderRadius: "0.75rem" }}
                 >
                   <strong>{item.title}</strong>
                   <br />

@@ -160,7 +160,7 @@ export default function PharmacyDashboard({ data }: PharmacyDashboardProps) {
                     ? "warning"
                     : "info"
               }
-              sx={{ borderRadius: 3 }}
+              sx={{ borderRadius: "0.75rem" }}
             >
               <strong>{item.title}</strong>
               <br />

@@ -97,7 +97,7 @@ export default function DashboardContainer() {
       ) : role === "supplier" ? (
         <Box
           sx={{
-            borderRadius: 4,
+            borderRadius: "0.75rem",
             border: "1px solid",
             borderColor: "divider",
             p: 4,

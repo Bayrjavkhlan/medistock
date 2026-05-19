@@ -39,7 +39,7 @@ export default function DashboardStatCard({
       sx={{
         p: 2.5,
         height: "100%",
-        borderRadius: 4,
+        borderRadius: "0.75rem",
         border: "1px solid",
         borderColor: "divider",
         position: "relative",
@@ -84,7 +84,7 @@ export default function DashboardStatCard({
             sx={{
               width: 46,
               height: 46,
-              borderRadius: 3,
+              borderRadius: "0.75rem",
               display: "grid",
               placeItems: "center",
               bgcolor: palette.soft,
