@@ -32,9 +32,9 @@ interface StaffModalProps {
 }
 
 const ROLES = [
-  { value: OrganizationRole.Owner, label: "Owner" },
-  { value: OrganizationRole.Manager, label: "Manager" },
-  { value: OrganizationRole.Staff, label: "Staff" },
+  { value: OrganizationRole.Owner, label: "Эзэмшигч" },
+  { value: OrganizationRole.Manager, label: "Менежер" },
+  { value: OrganizationRole.Staff, label: "Ажилтан" },
 ];
 
 type StaffForm = {

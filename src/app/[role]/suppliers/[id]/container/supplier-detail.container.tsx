@@ -253,7 +253,7 @@ export default function SupplierDetailContainer({
             {supplyItems.length === 0 ? (
               <StateView
                 title="Харуулах карт алга"
-                description="Энэ нийлүүлэгч дор хаяж нэг бүртгэлтэй болмогц carousel автоматаар гарч ирнэ."
+                description="Энэ нийлүүлэгч дор хаяж нэг бүртгэлтэй болмогц гүйлгэх жагсаалт автоматаар гарч ирнэ."
               />
             ) : (
               <Stack spacing={2}>

@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 
 import AbilityGuard from "@/components/AbilityGuard";
 import { resolveRoleKey, SIDEBARS } from "@/config/sidebars";
+import type { Subject } from "@/constants/routes";
 import { useActiveOrganization } from "@/hooks/useActiveOrganization";
 
 type Props = {
@@ -28,6 +29,36 @@ type Props = {
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
   mobileOpen: boolean;
   setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const sidebarLabelBySubject: Partial<Record<Subject, string>> = {
+  Admin_Dashboard: "Хяналтын самбар",
+  Hospital_Dashboard: "Хяналтын самбар",
+  Pharmacy_Dashboard: "Хяналтын самбар",
+  Supplier_Dashboard: "Хяналтын самбар",
+  User_Dashboard: "Хяналтын самбар",
+  Admin_Hospital: "Эмнэлгүүд",
+  User_Hospital: "Эмнэлгүүд",
+  Admin_Pharmacy: "Эмийн сангууд",
+  User_Pharmacy: "Эмийн сангууд",
+  Admin_Medicine: "Эмүүд",
+  Pharmacy_Medicine: "Эмүүд",
+  User_Medicine: "Эмүүд",
+  Admin_Staff: "Ажилчид",
+  Hospital_Staff: "Ажилчид",
+  Pharmacy_Staff: "Ажилчид",
+  Admin_Equipment: "Тоног төхөөрөмж",
+  Hospital_Equipment: "Тоног төхөөрөмж",
+  Pharmacy_Equipment: "Тоног төхөөрөмж",
+  User_Equipment: "Тоног төхөөрөмж",
+  Admin_EquipmentLog: "Бүртгэлүүд",
+  Hospital_EquipmentLog: "Бүртгэлүүд",
+  Pharmacy_EquipmentLog: "Бүртгэлүүд",
+  User_EquipmentLog: "Бүртгэлүүд",
+  Supply_Marketplace: "Хангамж",
+  Supply_Management: "Хангамжийн удирдлага",
+  Supplier_Management: "Нийлүүлэгчийн удирдлага",
+  Profile: "Профайл",
 };
 
 export default function Sidebar({
@@ -102,6 +133,7 @@ export default function Sidebar({
         {sidebarItems.map((item) => {
           const active = isActive(item.path);
           const Icon = item.icon;
+          const label = sidebarLabelBySubject[item.subject] ?? item.label;
           return (
             <AbilityGuard
               key={item.path}
@@ -109,7 +141,7 @@ export default function Sidebar({
               subject={item.subject}
               fallback={null}
             >
-              <Tooltip title={collapsed ? item.label : ""} placement="right">
+              <Tooltip title={collapsed ? label : ""} placement="right">
                 <ListItem
                   onClick={() => {
                     router.push(item.path);
@@ -150,7 +182,7 @@ export default function Sidebar({
                   >
                     <Icon />
                   </ListItemIcon>
-                  {!collapsed && <ListItemText primary={item.label} />}
+                  {!collapsed && <ListItemText primary={label} />}
                 </ListItem>
               </Tooltip>
             </AbilityGuard>

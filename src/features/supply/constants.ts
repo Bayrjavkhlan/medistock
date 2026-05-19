@@ -40,7 +40,7 @@ export const supplyCategoryLabelMap: Record<SupplyCategory, string> = {
   ICU_SUPPORT: "Эрчимт эмчилгээний дэмжлэг",
   STERILIZATION: "Ариутгал",
   HOSPITAL_FURNITURE: "Эмнэлгийн тавилга",
-  PPE: "PPE",
+  PPE: "Хувийн хамгаалах хэрэгсэл",
   OTHER: "Бусад",
 };
 

@@ -38,9 +38,9 @@ export default function PharmacyDashboard({ data }: PharmacyDashboardProps) {
   return (
     <Stack spacing={3}>
       <DashboardHero
-        eyebrow="Эмийн сангийн dashboard"
+        eyebrow="Эмийн сангийн хяналтын самбар"
         title={`${data.profile.name} салбарын хяналтын самбар`}
-        description="Эмийн listing-үүдийн нөөцийн төлөв, эрсдэлтэй бараа, хамгийн их нөөцтэй эм, сүүлийн шинэчлэлт болон салбарын байршлыг нэгтгэнэ."
+        description="Эмийн бүртгэлүүдийн нөөцийн төлөв, эрсдэлтэй бараа, хамгийн их нөөцтэй эм, сүүлийн шинэчлэлт болон салбарын байршлыг нэгтгэнэ."
         chips={[
           data.profile.address,
           data.profile.phone ?? "Утас бүртгэгдээгүй",
@@ -66,7 +66,7 @@ export default function PharmacyDashboard({ data }: PharmacyDashboardProps) {
         <Grid size={{ xs: 12, xl: 8 }}>
           <DashboardPanel
             title="Нөөцийн хөдөлгөөний чиг хандлага"
-            description="Сүүлийн 6 сарын listing шинэчлэлт болон эрсдэлтэй нөөцийн өөрчлөлтийн хандлага."
+            description="Сүүлийн 6 сарын бүртгэлийн шинэчлэлт болон эрсдэлтэй нөөцийн өөрчлөлтийн хандлага."
             action={
               <DashboardQuickActions
                 items={[
@@ -86,7 +86,7 @@ export default function PharmacyDashboard({ data }: PharmacyDashboardProps) {
         <Grid size={{ xs: 12, xl: 4 }}>
           <DashboardPanel
             title="Нөөцийн төлөвийн бүтэц"
-            description="Эмийн listing-үүдийг статусаар ангилсан ерөнхий тархалт."
+            description="Эмийн бүртгэлүүдийг төлөвөөр ангилсан ерөнхий тархалт."
           >
             <DashboardDonutChart items={data.inventoryStatus} />
           </DashboardPanel>
@@ -109,7 +109,7 @@ export default function PharmacyDashboard({ data }: PharmacyDashboardProps) {
         <Grid size={{ xs: 12, lg: 6 }}>
           <DashboardPanel
             title="Нөөц багатай эмүүд"
-            description="Анхаарал шаардсан listing-үүдийг хамгийн түрүүнд харуулна."
+            description="Анхаарал шаардсан бүртгэлүүдийг хамгийн түрүүнд харуулна."
           >
             <DashboardActivityList
               items={data.lowStockItems}
@@ -139,7 +139,7 @@ export default function PharmacyDashboard({ data }: PharmacyDashboardProps) {
             <DashboardActivityList
               items={data.recentUpdates}
               emptyTitle="Шинэчлэлт алга"
-              emptyDescription="Listing шинэчлэгдэж эхэлмэгц энд автоматаар харагдана."
+              emptyDescription="Бүртгэл шинэчлэгдэж эхэлмэгц энд автоматаар харагдана."
             />
           </DashboardPanel>
         </Grid>

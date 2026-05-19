@@ -5,10 +5,10 @@ import CButton from "@/components/core/Button";
 export default function Home() {
   return (
     <>
-      <>MediStock Home page</>
+      <>MediStock нүүр хуудас</>
       <br />
-      <CButton>Test Button</CButton>
-      <Button>Default Button</Button>
+      <CButton>Туршилтын товч</CButton>
+      <Button>Үндсэн товч</Button>
     </>
   );
 }

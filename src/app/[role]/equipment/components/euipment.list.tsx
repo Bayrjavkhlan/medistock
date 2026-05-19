@@ -45,7 +45,7 @@ export default function EquipmentListTable({
   // onSort,
   loading,
 }: EquipmentListTableProps) {
-  const columnCount = 6; // Name, Category, SerialNum, AssignedTo/Hospital, State, Actions
+  const columnCount = 6; // Нэр, ангилал, сериал дугаар, хариуцагч/эмнэлэг, төлөв, үйлдэл
   return (
     <Paper
       sx={{
@@ -71,11 +71,11 @@ export default function EquipmentListTable({
         >
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>SerialNum</TableCell>
-              <TableCell>AssignedTo</TableCell>
-              <TableCell>State</TableCell>
+              <TableCell>Нэр</TableCell>
+              <TableCell>Ангилал</TableCell>
+              <TableCell>Сериал дугаар</TableCell>
+              <TableCell>Хариуцагч</TableCell>
+              <TableCell>Төлөв</TableCell>
               <TableCell align="right">Үйлдэл</TableCell>
             </TableRow>
           </TableHead>

@@ -22,7 +22,7 @@ export const getClientGraphqlUrl = () => {
     }
 
     if (typeof window !== "undefined") {
-      throw new Error("NEXT_PUBLIC_GRAPHQL_URL is required in production");
+      throw new Error("production орчинд NEXT_PUBLIC_GRAPHQL_URL шаардлагатай");
     }
 
     return "";
@@ -49,7 +49,7 @@ export const getServerGraphqlUrl = () => {
     }
 
     throw new Error(
-      "Missing GraphQL URL. Set GRAPHQL_URL or NEXT_PUBLIC_GRAPHQL_URL in Vercel.",
+      "GraphQL URL тохируулагдаагүй байна. Vercel дээр GRAPHQL_URL эсвэл NEXT_PUBLIC_GRAPHQL_URL тохируулна уу.",
     );
   }
 

@@ -2,7 +2,7 @@ import type { ButtonProps } from "@mui/material/Button";
 import Button from "@mui/material/Button";
 import * as React from "react";
 
-// Extend ButtonProps so your custom button works like a normal MUI Button
+// Тусгай товчийг MUI Button шиг ашиглахын тулд ButtonProps-ийг өргөтгөв
 type CustomButtonProps = ButtonProps & {
   // Optional: add extra custom props if needed
 };

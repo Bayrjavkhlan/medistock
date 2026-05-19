@@ -29,7 +29,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
     });
 
     const payload = data?.refreshAccessToken;
-    if (!payload?.user?.id) throw new Error("Invalid refresh token");
+    if (!payload?.user?.id) throw new Error("Сэргээх токен буруу байна");
 
     return {
       ...token,
@@ -54,10 +54,10 @@ export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt", maxAge: 24 * 60 * 60 },
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "Нэвтрэх мэдээлэл",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { label: "И-мэйл", type: "email" },
+        password: { label: "Нууц үг", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;

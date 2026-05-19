@@ -135,7 +135,7 @@ export default function DashboardContainer() {
       ) : (
         <StateView
           title="Самбарын мэдээлэл олдсонгүй"
-          description="Таны рольд зориулсан dashboard мэдээлэл бэлэн биш байна."
+          description="Таны үүрэгт зориулсан хяналтын самбарын мэдээлэл бэлэн биш байна."
         />
       )}
     </AbilityGuard>

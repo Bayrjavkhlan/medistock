@@ -88,7 +88,7 @@ export default function AdminDashboard({ data }: AdminDashboardProps) {
         <Grid size={{ xs: 12, xl: 4 }}>
           <DashboardPanel
             title="Нөөцийн төлөвийн хуваарилалт"
-            description="Эмийн listing-үүдийн одоогийн төлөв байдлын ерөнхий бүтэц."
+            description="Эмийн бүртгэлүүдийн одоогийн төлөв байдлын ерөнхий бүтэц."
           >
             <DashboardDonutChart items={data.inventoryStatus} />
           </DashboardPanel>
@@ -159,13 +159,13 @@ export default function AdminDashboard({ data }: AdminDashboardProps) {
         <Grid size={{ xs: 12, lg: 6 }}>
           <DashboardPanel
             title="Нөөц ихтэй эмийн сангууд"
-            description="Эмийн inventory listing-ийн тоогоор тэргүүлж буй салбарууд."
+            description="Эмийн нөөцийн бүртгэлийн тоогоор тэргүүлж буй салбарууд."
           >
             <DashboardActivityList
               items={data.topPharmacies.map((item, index) => ({
                 id: `pharmacy-rank-${index}`,
                 title: item.label,
-                subtitle: `${item.value} listing`,
+                subtitle: `${item.value} бүртгэл`,
                 meta: item.helper ?? undefined,
                 href: undefined,
                 createdAt: undefined,

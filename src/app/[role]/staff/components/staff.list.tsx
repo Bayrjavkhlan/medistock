@@ -51,7 +51,7 @@ export default function StaffListTable({
   canDelete,
   loading,
 }: StaffListTableProps) {
-  const columnCount = 6; // Name, Email, Phone, Organization, Role, Actions
+  const columnCount = 6; // Нэр, и-мэйл, утас, байгууллага, үүрэг, үйлдэл
   return (
     <Paper
       sx={{
@@ -79,7 +79,7 @@ export default function StaffListTable({
             <TableRow>
               <SortableTableHeader
                 field="name"
-                label="Name"
+                label="Нэр"
                 currentSort={{
                   field: sortBy.field,
                   order: sortBy.order === EnumSortOrder.Asc ? "asc" : "desc",
@@ -93,7 +93,7 @@ export default function StaffListTable({
               />
               <SortableTableHeader
                 field="email"
-                label="Email"
+                label="И-мэйл"
                 currentSort={{
                   field: sortBy.field,
                   order: sortBy.order === EnumSortOrder.Asc ? "asc" : "desc",
@@ -105,9 +105,9 @@ export default function StaffListTable({
                   );
                 }}
               />
-              <StyledTableHeadCell>Phone</StyledTableHeadCell>
-              <StyledTableHeadCell>Organization</StyledTableHeadCell>
-              <StyledTableHeadCell>Role</StyledTableHeadCell>
+              <StyledTableHeadCell>Утас</StyledTableHeadCell>
+              <StyledTableHeadCell>Байгууллага</StyledTableHeadCell>
+              <StyledTableHeadCell>Үүрэг</StyledTableHeadCell>
               <StyledTableHeadCell align="right">Үйлдэл</StyledTableHeadCell>
             </TableRow>
           </TableHead>

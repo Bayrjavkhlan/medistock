@@ -38,7 +38,7 @@ export default function HospitalDashboard({ data }: HospitalDashboardProps) {
   return (
     <Stack spacing={3}>
       <DashboardHero
-        eyebrow="Эмнэлгийн dashboard"
+        eyebrow="Эмнэлгийн хяналтын самбар"
         title={`${data.profile.name} байгууллагын хяналтын самбар`}
         description="Эмнэлгийн тоног төхөөрөмж, захиалга, ажилтны эрх, сүүлийн лог болон ойролцоох эмийн сангуудын мэдээллийг нэг дороос харуулна."
         chips={[

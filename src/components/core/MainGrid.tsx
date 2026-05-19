@@ -10,9 +10,9 @@ import StatCard from "./StatCard";
 
 const data: StatCardProps[] = [
   {
-    title: "Users",
+    title: "Хэрэглэгчид",
     value: "14k",
-    interval: "Last 30 days",
+    interval: "Сүүлийн 30 өдөр",
     trend: "up",
     data: [
       200, 24, 220, 260, 240, 380, 100, 240, 280, 240, 300, 340, 320, 360, 340,
@@ -20,9 +20,9 @@ const data: StatCardProps[] = [
     ],
   },
   {
-    title: "Conversions",
+    title: "Хөрвүүлэлт",
     value: "325",
-    interval: "Last 30 days",
+    interval: "Сүүлийн 30 өдөр",
     trend: "down",
     data: [
       1640, 1250, 970, 1130, 1050, 900, 720, 1080, 900, 450, 920, 820, 840, 600,
@@ -31,9 +31,9 @@ const data: StatCardProps[] = [
     ],
   },
   {
-    title: "Event count",
+    title: "Үйл явдлын тоо",
     value: "200k",
-    interval: "Last 30 days",
+    interval: "Сүүлийн 30 өдөр",
     trend: "neutral",
     data: [
       500, 400, 510, 530, 520, 600, 530, 520, 510, 730, 520, 510, 530, 620, 510,
@@ -47,7 +47,7 @@ export default function MainGrid() {
     <Box sx={{ width: "100%", maxWidth: { sm: "100%", md: "1700px" } }}>
       {/* cards */}
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-        Overview
+        Ерөнхий тойм
       </Typography>
       <Grid
         container
