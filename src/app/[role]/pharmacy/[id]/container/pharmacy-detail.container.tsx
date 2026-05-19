@@ -191,7 +191,7 @@ export default function PharmacyDetailContainer({
                     key={entry.id}
                     sx={{
                       p: 2.5,
-                      borderRadius: 3,
+                      borderRadius: "0.75rem",
                       border: "1px solid",
                       borderColor: "divider",
                       background:
@@ -278,7 +278,7 @@ export default function PharmacyDetailContainer({
             description="Мэдээлэл дутуу байлаа ч хэрэглэгчийн туршлагыг тогтвортой байлгана."
             eyebrow="Тайлбар"
           >
-            <Alert severity="info" sx={{ borderRadius: 3 }}>
+            <Alert severity="info" sx={{ borderRadius: "0.75rem" }}>
               Ажиллах цаг, тайлбар зэрэг нэмэлт талбарууд одоогоор өгөгдлийн
               санд тусдаа хадгалагдаагүй тул энэ хуудсанд бодитоор байгаа
               мэдээллийг л найдвартай харуулж байна.

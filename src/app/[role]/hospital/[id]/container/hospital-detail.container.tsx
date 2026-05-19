@@ -158,7 +158,7 @@ export default function HospitalDetailContainer({
             description="Мэдээлэл дутуу тохиолдолд систем тасалдахгүй, хэрэглэгч ойлгомжтой дэлгэц харна."
             eyebrow="Тайлбар"
           >
-            <Alert severity="info" sx={{ borderRadius: 3 }}>
+            <Alert severity="info" sx={{ borderRadius: "0.75rem" }}>
               Ажиллах цаг, тайлбар зэрэг нэмэлт талбарууд одоогоор өгөгдлийн
               санд байхгүй тул энэ хуудсанд зөвхөн одоо байгаа мэдээллийг
               найдвартай харуулж байна.

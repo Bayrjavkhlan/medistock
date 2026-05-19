@@ -160,7 +160,7 @@ export default function EntityLocationMap({
         description="Газрын зургийн мэдээлэл бэлэн болмогц энд харагдана."
         eyebrow="Байршил"
       >
-        <Alert severity="info" sx={{ borderRadius: 3 }}>
+        <Alert severity="info" sx={{ borderRadius: "0.75rem" }}>
           Энэ байгууллагын координат бүртгэгдээгүй байна. Хаягийн мэдээллийг
           доорх картуудаас харна уу.
         </Alert>
@@ -191,7 +191,7 @@ export default function EntityLocationMap({
       <Stack spacing={2}>
         {userLocation.status !== "success" &&
         userLocation.status !== "loading" ? (
-          <Alert severity="info" sx={{ borderRadius: 3 }}>
+          <Alert severity="info" sx={{ borderRadius: "0.75rem" }}>
             {userLocation.message}
           </Alert>
         ) : null}
@@ -200,7 +200,7 @@ export default function EntityLocationMap({
           sx={{
             position: "relative",
             overflow: "hidden",
-            borderRadius: 4,
+            borderRadius: "0.75rem",
             border: "1px solid",
             borderColor: "divider",
             height: { xs: 320, md: 420 },

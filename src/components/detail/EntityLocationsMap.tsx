@@ -169,7 +169,7 @@ export default function EntityLocationsMap({
         description="Координатын мэдээлэл бэлэн болмогц энд автоматаар харагдана."
         eyebrow="Газрын зураг"
       >
-        <Alert severity="info" sx={{ borderRadius: 3 }}>
+        <Alert severity="info" sx={{ borderRadius: "0.75rem" }}>
           Энэ эмтэй холбоотой эмийн сангуудын байршлын координат одоогоор
           бүртгэгдээгүй байна.
         </Alert>
@@ -200,7 +200,7 @@ export default function EntityLocationsMap({
       <Stack spacing={2}>
         {userLocation.status !== "success" &&
         userLocation.status !== "loading" ? (
-          <Alert severity="info" sx={{ borderRadius: 3 }}>
+          <Alert severity="info" sx={{ borderRadius: "0.75rem" }}>
             {userLocation.message}
           </Alert>
         ) : null}
@@ -209,7 +209,7 @@ export default function EntityLocationsMap({
           sx={{
             position: "relative",
             overflow: "hidden",
-            borderRadius: 4,
+            borderRadius: "0.75rem",
             border: "1px solid",
             borderColor: "divider",
             height: { xs: 320, md: 420 },

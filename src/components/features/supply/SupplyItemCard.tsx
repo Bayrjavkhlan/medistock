@@ -24,7 +24,7 @@ export default function SupplyItemCard({ item, href }: SupplyItemCardProps) {
     <Card
       sx={{
         height: "100%",
-        borderRadius: 4,
+        borderRadius: "0.75rem",
         border: "1px solid",
         borderColor: "divider",
         boxShadow: "0 18px 40px rgba(15, 23, 42, 0.08)",

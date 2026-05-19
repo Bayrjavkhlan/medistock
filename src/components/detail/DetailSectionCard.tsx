@@ -22,7 +22,7 @@ export default function DetailSectionCard({
     <Card
       elevation={0}
       sx={{
-        borderRadius: 4,
+        borderRadius: "0.75rem",
         border: "1px solid",
         borderColor: "divider",
         background:

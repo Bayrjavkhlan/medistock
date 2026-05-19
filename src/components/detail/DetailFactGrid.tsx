@@ -26,7 +26,7 @@ export default function DetailFactGrid({ items }: DetailFactGridProps) {
           spacing={0.75}
           sx={{
             p: 2,
-            borderRadius: 3,
+            borderRadius: "0.75rem",
             bgcolor: "rgba(248,250,252,0.95)",
             border: "1px solid",
             borderColor: "divider",

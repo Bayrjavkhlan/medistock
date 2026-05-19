@@ -173,12 +173,18 @@ export default function MedicineDetailContainer({
                   >
                     <Stack spacing={1.5}>
                       {listingError ? (
-                        <Alert severity="error" sx={{ borderRadius: 3 }}>
+                        <Alert
+                          severity="error"
+                          sx={{ borderRadius: "0.75rem" }}
+                        >
                           {listingError}
                         </Alert>
                       ) : null}
                       {currentListing ? (
-                        <Alert severity="success" sx={{ borderRadius: 3 }}>
+                        <Alert
+                          severity="success"
+                          sx={{ borderRadius: "0.75rem" }}
+                        >
                           Манай эмийн санд {currentListing.quantity} ширхэг
                           нөөцтэй
                           {currentListing.price != null
@@ -186,7 +192,7 @@ export default function MedicineDetailContainer({
                             : "."}
                         </Alert>
                       ) : (
-                        <Alert severity="info" sx={{ borderRadius: 3 }}>
+                        <Alert severity="info" sx={{ borderRadius: "0.75rem" }}>
                           Энэ эм манай эмийн санд одоогоор холбоогүй байна.
                         </Alert>
                       )}
@@ -257,7 +263,7 @@ export default function MedicineDetailContainer({
                 <Box
                   sx={{
                     p: 2.5,
-                    borderRadius: 3,
+                    borderRadius: "0.75rem",
                     bgcolor: "rgba(248,250,252,0.95)",
                     border: "1px solid",
                     borderColor: "divider",
@@ -274,7 +280,7 @@ export default function MedicineDetailContainer({
                     {formatNullable(drug.description)}
                   </Typography>
                 </Box>
-                <Alert severity="info" sx={{ borderRadius: 3 }}>
+                <Alert severity="info" sx={{ borderRadius: "0.75rem" }}>
                   Заалт, анхааруулга, гаж нөлөө зэрэг нарийвчилсан агуулгын
                   тусдаа өгөгдөл танай системд одоогоор хадгалагдаагүй байна.
                   Тиймээс энэ хэсэг нь бодитоор бүртгэгдсэн тайлбарыг л харуулж
@@ -307,7 +313,7 @@ export default function MedicineDetailContainer({
                         key={entry.id}
                         sx={{
                           p: 2.5,
-                          borderRadius: 3,
+                          borderRadius: "0.75rem",
                           border: "1px solid",
                           borderColor: "divider",
                           background:

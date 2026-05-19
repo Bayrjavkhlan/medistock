@@ -127,7 +127,7 @@ export default function SupplyMarketplaceContainer() {
           <Stack spacing={4}>
             <Box
               sx={{
-                borderRadius: 6,
+                borderRadius: "0.75rem",
                 border: "1px solid",
                 borderColor: "divider",
                 px: { xs: 2.5, md: 4 },
@@ -161,7 +161,7 @@ export default function SupplyMarketplaceContainer() {
             <Box
               sx={{
                 p: 2.5,
-                borderRadius: 4,
+                borderRadius: "0.75rem",
                 border: "1px solid",
                 borderColor: "divider",
                 bgcolor: "background.paper",

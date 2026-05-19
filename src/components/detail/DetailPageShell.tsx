@@ -39,7 +39,7 @@ export default function DetailPageShell({
           sx={{
             position: "relative",
             overflow: "hidden",
-            borderRadius: 6,
+            borderRadius: "0.75rem",
             border: "1px solid",
             borderColor: "divider",
             background:

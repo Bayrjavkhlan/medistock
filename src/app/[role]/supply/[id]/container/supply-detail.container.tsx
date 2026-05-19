@@ -199,7 +199,7 @@ export default function SupplyDetailContainer({
                 sx={{
                   m: 0,
                   p: 2.5,
-                  borderRadius: 3,
+                  borderRadius: "0.75rem",
                   bgcolor: "rgba(248,250,252,0.95)",
                   overflow: "auto",
                   fontFamily: "monospace",
@@ -238,7 +238,7 @@ export default function SupplyDetailContainer({
                       key={imageUrl}
                       sx={{
                         minHeight: 220,
-                        borderRadius: 4,
+                        borderRadius: "0.75rem",
                         border: "1px solid",
                         borderColor: "divider",
                         background: `center / cover no-repeat url(${imageUrl})`,

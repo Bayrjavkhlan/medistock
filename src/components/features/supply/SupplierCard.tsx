@@ -25,7 +25,7 @@ export default function SupplierCard({ supplier, href }: SupplierCardProps) {
     <Card
       sx={{
         height: "100%",
-        borderRadius: 4,
+        borderRadius: "0.75rem",
         border: "1px solid",
         borderColor: "divider",
         boxShadow: "0 16px 36px rgba(15, 23, 42, 0.08)",
@@ -38,7 +38,7 @@ export default function SupplierCard({ supplier, href }: SupplierCardProps) {
             sx={{
               width: 64,
               height: 64,
-              borderRadius: 3,
+              borderRadius: "0.75rem",
               background:
                 supplier.logoUrl != null
                   ? `center / cover no-repeat url(${supplier.logoUrl})`
