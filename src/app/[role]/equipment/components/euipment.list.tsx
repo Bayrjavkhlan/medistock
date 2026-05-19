@@ -45,7 +45,7 @@ export default function EquipmentListTable({
   // onSort,
   loading,
 }: EquipmentListTableProps) {
-  const columnCount = 6; // Нэр, ангилал, сериал дугаар, хариуцагч/эмнэлэг, төлөв, үйлдэл
+  const columnCount = 7; // Нэр, ангилал, сериал дугаар, хариуцагч, эмнэлэг, төлөв, үйлдэл
   return (
     <Paper
       sx={{
@@ -75,6 +75,7 @@ export default function EquipmentListTable({
               <TableCell>Ангилал</TableCell>
               <TableCell>Сериал дугаар</TableCell>
               <TableCell>Хариуцагч</TableCell>
+              <TableCell>Эмнэлэг</TableCell>
               <TableCell>Төлөв</TableCell>
               <TableCell align="right">Үйлдэл</TableCell>
             </TableRow>
@@ -94,11 +95,8 @@ export default function EquipmentListTable({
                   <TableCell>{equipment.name ?? "-"}</TableCell>
                   <TableCell>{equipment.category ?? "-"}</TableCell>
                   <TableCell>{equipment.serialNo ?? "-"}</TableCell>
-                  <TableCell>
-                    {equipment.assignedTo?.name ?? "-"}
-                    {"-"}
-                    {equipment.hospital?.name ?? "-"}
-                  </TableCell>
+                  <TableCell>{equipment.assignedTo?.name ?? "-"}</TableCell>
+                  <TableCell>{equipment.hospital?.name ?? "-"}</TableCell>
                   <TableCell>{equipment.state ?? "-"}</TableCell>
                   <TableCell align="right">
                     {canUpdate ? (

@@ -96,6 +96,13 @@ export const SIDEBARS: Record<RoleKey, SidebarItem[]> = {
       subject: "Admin_Medicine",
     },
     {
+      label: "Тоног төхөөрөмж",
+      path: "/admin/equipment",
+      icon: ConstructionIcon,
+      action: "read",
+      subject: "Admin_Equipment",
+    },
+    {
       label: "Ажилчид",
       path: "/admin/staff",
       icon: PeopleIcon,
