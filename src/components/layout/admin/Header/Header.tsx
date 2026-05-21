@@ -2,10 +2,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Box,
-  FormControl,
   IconButton,
-  MenuItem,
-  Select,
   Toolbar,
   Typography,
   useTheme,
@@ -25,11 +22,11 @@ type HeaderProps = {
   setMobileOpen?: (val: boolean) => void;
 };
 
-const roleLabelMap = {
-  OWNER: "Эзэмшигч",
-  MANAGER: "Менежер",
-  STAFF: "Ажилтан",
-} as const;
+// const roleLabelMap = {
+//   OWNER: "Эзэмшигч",
+//   MANAGER: "Менежер",
+//   STAFF: "Ажилтан",
+// } as const;
 
 export default function Header({
   collapsed,
@@ -40,8 +37,9 @@ export default function Header({
   const sidebarWidth = collapsed ? 100 : 300;
 
   const { data: session } = useSession();
-  const { memberships, activeOrganization, setActiveOrganization } =
-    useActiveOrganization();
+  const { activeOrganization } = useActiveOrganization();
+  // const { memberships, activeOrganization, setActiveOrganization } =
+  //   useActiveOrganization();
   const pageTitle = usePageTitle();
 
   return (
@@ -86,7 +84,7 @@ export default function Header({
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          {memberships.length > 0 && (
+          {/* {memberships.length > 0 && (
             <FormControl size="small" sx={{ minWidth: { xs: 150, sm: 220 } }}>
               <Select
                 value={activeOrganization?.organization.id ?? ""}
@@ -109,7 +107,7 @@ export default function Header({
                 ))}
               </Select>
             </FormControl>
-          )}
+          )} */}
           <LogoutButton />
           <Profile
             username={session?.user?.name ?? undefined}
