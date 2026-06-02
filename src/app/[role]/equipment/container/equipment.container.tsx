@@ -1,6 +1,7 @@
 "use client";
 import { useMutation } from "@apollo/client/react";
 import { debounce } from "lodash";
+import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -24,6 +25,8 @@ import EquipmentListTable from "../components/euipment.list";
 
 export default function EquipmentContainer() {
   const { data: session } = useSession();
+  const params = useParams<{ role: string }>();
+  const router = useRouter();
   const { activeOrganization } = useActiveOrganization();
   const portalRole = getPortalRole(
     session?.user ?? null,
@@ -152,6 +155,7 @@ export default function EquipmentContainer() {
               setEditingId(id);
               setOpen(true);
             }}
+            onView={(id) => router.push(`/${params.role}/equipment/${id}`)}
             onDelete={(id) => setDeleteId(id)}
             canUpdate={canUpdate}
             canDelete={canDelete}

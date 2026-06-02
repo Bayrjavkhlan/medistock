@@ -1,5 +1,6 @@
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import {
   Box,
   IconButton,
@@ -25,6 +26,7 @@ type EquipmentListTableProps = {
   onPageChange: (page: number) => void;
   onRowsPerPageChange: (rows: number) => void;
   onEdit: (id: string) => void;
+  onView: (id: string) => void;
   onDelete: (id: string) => void;
   canUpdate: boolean;
   canDelete: boolean;
@@ -40,6 +42,7 @@ export default function EquipmentListTable({
   onPageChange,
   onRowsPerPageChange,
   onEdit,
+  onView,
   onDelete,
   canUpdate,
   canDelete,
@@ -132,6 +135,17 @@ export default function EquipmentListTable({
                   </TableCell>
                   <TableCell>{equipment.state ?? "-"}</TableCell>
                   <TableCell align="right">
+                    <Tooltip title="View details">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          if (!equipment.id) return;
+                          onView(equipment.id);
+                        }}
+                      >
+                        <VisibilityOutlinedIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
                     {canUpdate ? (
                       <Tooltip title="Засах">
                         <IconButton

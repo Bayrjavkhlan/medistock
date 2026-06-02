@@ -65,6 +65,11 @@ export const EquipmentLogsDocument = gql`
       data {
         id
         description
+        type
+        faultDate
+        problem
+        repairAction
+        status
         createdAt
         equipment {
           id

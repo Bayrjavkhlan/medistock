@@ -7,6 +7,18 @@ export const EQUIPMENTS = gql`
         id
         name
         serialNo
+        brand
+        model
+        manufacturedYear
+        commissionedDate
+        endOfLifeDate
+        passportDocument
+        usageManualDocument
+        calibrationInstructionDocument
+        maintenancePlan
+        requiredParts
+        usedParts
+        sparePartsStock
         assignedTo {
           id
           name
@@ -32,15 +44,47 @@ export const EQUIPMENT_DETAIL = gql`
       id
       name
       serialNo
+      brand
+      model
+      manufacturedYear
+      commissionedDate
+      endOfLifeDate
+      passportDocument
+      usageManualDocument
+      calibrationInstructionDocument
+      maintenancePlan
+      requiredParts
+      usedParts
+      sparePartsStock
+      category
       state
+      createdAt
+      updatedAt
       assignedTo {
         id
         name
         email
+        phone
       }
       hospital {
         id
         name
+        email
+      }
+      logs {
+        id
+        description
+        type
+        faultDate
+        problem
+        repairAction
+        status
+        createdAt
+        performedBy {
+          id
+          name
+          email
+        }
       }
     }
   }

@@ -257,14 +257,27 @@ export enum EnumSortOrder {
 export type Equipment = {
   __typename?: "Equipment";
   assignedTo?: Maybe<User>;
+  brand?: Maybe<Scalars["String"]["output"]>;
+  calibrationInstructionDocument?: Maybe<Scalars["String"]["output"]>;
   category?: Maybe<Scalars["String"]["output"]>;
+  commissionedDate?: Maybe<Scalars["DateTime"]["output"]>;
   createdAt?: Maybe<Scalars["DateTime"]["output"]>;
+  endOfLifeDate?: Maybe<Scalars["DateTime"]["output"]>;
   hospital?: Maybe<Hospital>;
   id?: Maybe<Scalars["String"]["output"]>;
+  logs?: Maybe<Array<Maybe<EquipmentLog>>>;
+  maintenancePlan?: Maybe<Scalars["String"]["output"]>;
+  manufacturedYear?: Maybe<Scalars["Int"]["output"]>;
+  model?: Maybe<Scalars["String"]["output"]>;
   name?: Maybe<Scalars["String"]["output"]>;
+  passportDocument?: Maybe<Scalars["String"]["output"]>;
+  requiredParts?: Maybe<Scalars["String"]["output"]>;
   serialNo?: Maybe<Scalars["String"]["output"]>;
+  sparePartsStock?: Maybe<Scalars["String"]["output"]>;
   state?: Maybe<Scalars["String"]["output"]>;
   updatedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  usageManualDocument?: Maybe<Scalars["String"]["output"]>;
+  usedParts?: Maybe<Scalars["String"]["output"]>;
 };
 
 export enum EquipmentCategory {
@@ -284,11 +297,23 @@ export enum EquipmentCategory {
 
 export type EquipmentCreateInput = {
   assignedToId?: InputMaybe<Scalars["String"]["input"]>;
+  brand?: InputMaybe<Scalars["String"]["input"]>;
+  calibrationInstructionDocument?: InputMaybe<Scalars["String"]["input"]>;
   category: EquipmentCategory;
+  commissionedDate?: InputMaybe<Scalars["DateTime"]["input"]>;
+  endOfLifeDate?: InputMaybe<Scalars["DateTime"]["input"]>;
   hospitalId: Scalars["String"]["input"];
+  maintenancePlan?: InputMaybe<Scalars["String"]["input"]>;
+  manufacturedYear?: InputMaybe<Scalars["Int"]["input"]>;
+  model?: InputMaybe<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
+  passportDocument?: InputMaybe<Scalars["String"]["input"]>;
+  requiredParts?: InputMaybe<Scalars["String"]["input"]>;
   serialNo: Scalars["String"]["input"];
+  sparePartsStock?: InputMaybe<Scalars["String"]["input"]>;
   state: EquipmentState;
+  usageManualDocument?: InputMaybe<Scalars["String"]["input"]>;
+  usedParts?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type EquipmentLog = {
@@ -296,17 +321,40 @@ export type EquipmentLog = {
   createdAt?: Maybe<Scalars["DateTime"]["output"]>;
   description?: Maybe<Scalars["String"]["output"]>;
   equipment?: Maybe<Equipment>;
+  faultDate?: Maybe<Scalars["DateTime"]["output"]>;
   id?: Maybe<Scalars["String"]["output"]>;
   performedBy?: Maybe<User>;
+  problem?: Maybe<Scalars["String"]["output"]>;
+  repairAction?: Maybe<Scalars["String"]["output"]>;
+  status?: Maybe<Scalars["String"]["output"]>;
+  type?: Maybe<Scalars["String"]["output"]>;
 };
 
 export type EquipmentLogCreateInput = {
   description: Scalars["String"]["input"];
   equipmentId: Scalars["String"]["input"];
+  faultDate?: InputMaybe<Scalars["DateTime"]["input"]>;
+  problem?: InputMaybe<Scalars["String"]["input"]>;
+  repairAction?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  type?: InputMaybe<EquipmentLogType>;
 };
+
+export enum EquipmentLogType {
+  Calibration = "CALIBRATION",
+  Fault = "FAULT",
+  General = "GENERAL",
+  Inspection = "INSPECTION",
+  Maintenance = "MAINTENANCE",
+}
 
 export type EquipmentLogUpdateInput = {
   description: Scalars["String"]["input"];
+  faultDate?: InputMaybe<Scalars["DateTime"]["input"]>;
+  problem?: InputMaybe<Scalars["String"]["input"]>;
+  repairAction?: InputMaybe<Scalars["String"]["input"]>;
+  status?: InputMaybe<Scalars["String"]["input"]>;
+  type?: InputMaybe<EquipmentLogType>;
 };
 
 export type EquipmentLogs = {
@@ -1619,6 +1667,18 @@ export type EquipmentsQuery = {
       id?: string | null;
       name?: string | null;
       serialNo?: string | null;
+      brand?: string | null;
+      model?: string | null;
+      manufacturedYear?: number | null;
+      commissionedDate?: any | null;
+      endOfLifeDate?: any | null;
+      passportDocument?: string | null;
+      usageManualDocument?: string | null;
+      calibrationInstructionDocument?: string | null;
+      maintenancePlan?: string | null;
+      requiredParts?: string | null;
+      usedParts?: string | null;
+      sparePartsStock?: string | null;
       state?: string | null;
       category?: string | null;
       assignedTo?: {
@@ -1649,18 +1709,52 @@ export type EquipmentDetailQuery = {
     id?: string | null;
     name?: string | null;
     serialNo?: string | null;
+    brand?: string | null;
+    model?: string | null;
+    manufacturedYear?: number | null;
+    commissionedDate?: any | null;
+    endOfLifeDate?: any | null;
+    passportDocument?: string | null;
+    usageManualDocument?: string | null;
+    calibrationInstructionDocument?: string | null;
+    maintenancePlan?: string | null;
+    requiredParts?: string | null;
+    usedParts?: string | null;
+    sparePartsStock?: string | null;
+    category?: string | null;
     state?: string | null;
+    createdAt?: any | null;
+    updatedAt?: any | null;
     assignedTo?: {
       __typename?: "User";
       id?: string | null;
       name?: string | null;
       email?: string | null;
+      phone?: string | null;
     } | null;
     hospital?: {
       __typename?: "Hospital";
       id?: string | null;
       name?: string | null;
+      email?: string | null;
     } | null;
+    logs?: Array<{
+      __typename?: "EquipmentLog";
+      id?: string | null;
+      description?: string | null;
+      type?: string | null;
+      faultDate?: any | null;
+      problem?: string | null;
+      repairAction?: string | null;
+      status?: string | null;
+      createdAt?: any | null;
+      performedBy?: {
+        __typename?: "User";
+        id?: string | null;
+        name?: string | null;
+        email?: string | null;
+      } | null;
+    } | null> | null;
   } | null;
 };
 
@@ -4227,6 +4321,51 @@ export const EquipmentsDocument = {
                         kind: "Field",
                         name: { kind: "Name", value: "serialNo" },
                       },
+                      { kind: "Field", name: { kind: "Name", value: "brand" } },
+                      { kind: "Field", name: { kind: "Name", value: "model" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "manufacturedYear" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "commissionedDate" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "endOfLifeDate" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "passportDocument" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "usageManualDocument" },
+                      },
+                      {
+                        kind: "Field",
+                        name: {
+                          kind: "Name",
+                          value: "calibrationInstructionDocument",
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "maintenancePlan" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "requiredParts" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "usedParts" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "sparePartsStock" },
+                      },
                       {
                         kind: "Field",
                         name: { kind: "Name", value: "assignedTo" },
@@ -4335,7 +4474,52 @@ export const EquipmentDetailDocument = {
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 { kind: "Field", name: { kind: "Name", value: "name" } },
                 { kind: "Field", name: { kind: "Name", value: "serialNo" } },
+                { kind: "Field", name: { kind: "Name", value: "brand" } },
+                { kind: "Field", name: { kind: "Name", value: "model" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "manufacturedYear" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "commissionedDate" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "endOfLifeDate" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "passportDocument" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "usageManualDocument" },
+                },
+                {
+                  kind: "Field",
+                  name: {
+                    kind: "Name",
+                    value: "calibrationInstructionDocument",
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "maintenancePlan" },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "requiredParts" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "usedParts" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "sparePartsStock" },
+                },
+                { kind: "Field", name: { kind: "Name", value: "category" } },
                 { kind: "Field", name: { kind: "Name", value: "state" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+                { kind: "Field", name: { kind: "Name", value: "updatedAt" } },
                 {
                   kind: "Field",
                   name: { kind: "Name", value: "assignedTo" },
@@ -4345,6 +4529,7 @@ export const EquipmentDetailDocument = {
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
                       { kind: "Field", name: { kind: "Name", value: "email" } },
+                      { kind: "Field", name: { kind: "Name", value: "phone" } },
                     ],
                   },
                 },
@@ -4356,6 +4541,63 @@ export const EquipmentDetailDocument = {
                     selections: [
                       { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "name" } },
+                      { kind: "Field", name: { kind: "Name", value: "email" } },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "logs" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "description" },
+                      },
+                      { kind: "Field", name: { kind: "Name", value: "type" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "faultDate" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "problem" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "repairAction" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "status" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "createdAt" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "performedBy" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "id" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "name" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "email" },
+                            },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },

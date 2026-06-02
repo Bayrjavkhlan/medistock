@@ -1,5 +1,7 @@
 import {
+  Chip,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -29,7 +31,8 @@ export default function EquipmentLogList({
   onRowsPerPageChange,
   loading,
 }: EquipmentLogListProps) {
-  const columnCount = 5;
+  const columnCount = 6;
+
   return (
     <Paper
       sx={{
@@ -55,11 +58,12 @@ export default function EquipmentLogList({
         >
           <TableHead>
             <TableRow>
-              <TableCell>Огноо</TableCell>
-              <TableCell>Тоног төхөөрөмж</TableCell>
-              <TableCell>Гүйцэтгэсэн</TableCell>
-              <TableCell>Тайлбар</TableCell>
-              <TableCell align="right">Үйлдэл</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>Equipment</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Performed By</TableCell>
+              <TableCell>Details</TableCell>
+              <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -68,7 +72,7 @@ export default function EquipmentLogList({
             ) : logs.count === 0 ? (
               <TableRow>
                 <TableCell colSpan={columnCount} align="center" sx={{ py: 4 }}>
-                  Лог олдсонгүй
+                  No equipment logs found
                 </TableCell>
               </TableRow>
             ) : (
@@ -82,11 +86,37 @@ export default function EquipmentLogList({
                   <TableCell>
                     {log.equipment?.name ?? "-"}
                     {log.equipment?.serialNo
-                      ? ` • ${log.equipment.serialNo}`
+                      ? ` / ${log.equipment.serialNo}`
                       : ""}
                   </TableCell>
+                  <TableCell>
+                    <Stack spacing={0.75} alignItems="flex-start">
+                      <Chip size="small" label={log.type ?? "GENERAL"} />
+                      {log.status ? (
+                        <Chip
+                          size="small"
+                          label={log.status}
+                          variant="outlined"
+                        />
+                      ) : null}
+                    </Stack>
+                  </TableCell>
                   <TableCell>{log.performedBy?.name ?? "-"}</TableCell>
-                  <TableCell>{log.description ?? "-"}</TableCell>
+                  <TableCell>
+                    <Stack spacing={0.5}>
+                      <span>{log.description ?? "-"}</span>
+                      {log.problem ? <span>Problem: {log.problem}</span> : null}
+                      {log.repairAction ? (
+                        <span>Repair: {log.repairAction}</span>
+                      ) : null}
+                      {log.faultDate ? (
+                        <span>
+                          Fault date:{" "}
+                          {new Date(log.faultDate).toLocaleDateString()}
+                        </span>
+                      ) : null}
+                    </Stack>
+                  </TableCell>
                   <TableCell align="right">-</TableCell>
                 </TableRow>
               ))
@@ -105,8 +135,8 @@ export default function EquipmentLogList({
         onRowsPerPageChange={(e) =>
           onRowsPerPageChange(parseInt(e.target.value, 10))
         }
-        labelRowsPerPage="Хуудасны тоо:"
-        labelDisplayedRows={({ from, to, count }) => `${from}–${to} / ${count}`}
+        labelRowsPerPage="Rows per page:"
+        labelDisplayedRows={({ from, to, count }) => `${from}-${to} / ${count}`}
       />
     </Paper>
   );
