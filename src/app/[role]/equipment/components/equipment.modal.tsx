@@ -18,6 +18,10 @@ import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 
 import {
+  formatEquipmentCategory,
+  formatEquipmentState,
+} from "@/features/equipment/display";
+import {
   EQUIPMENT_CREATE,
   EQUIPMENT_UPDATE,
 } from "@/features/equipment/graphql/mutations.gql";
@@ -54,11 +58,11 @@ type EquipmentModalProps = {
 };
 
 const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  serialNo: z.string().min(1, "Serial number is required"),
-  category: z.string().min(1, "Category is required"),
-  state: z.string().min(1, "State is required"),
-  hospitalId: z.string().min(1, "Hospital is required"),
+  name: z.string().min(1, "Нэр оруулна уу"),
+  serialNo: z.string().min(1, "Сериал дугаар оруулна уу"),
+  category: z.string().min(1, "Ангилал сонгоно уу"),
+  state: z.string().min(1, "Төлөв сонгоно уу"),
+  hospitalId: z.string().min(1, "Эмнэлэг сонгоно уу"),
   manufacturedYear: z
     .string()
     .refine(
@@ -67,7 +71,7 @@ const schema = z.object({
         (/^\d{4}$/.test(value) &&
           Number(value) >= 1900 &&
           Number(value) <= 2100),
-      "Enter a valid year",
+      "Зөв он оруулна уу",
     ),
 });
 
@@ -157,11 +161,12 @@ export default function EquipmentModal({
   }, [open, mode, initialData, hospitals]);
 
   const title = useMemo(
-    () => (mode === "create" ? "Add Equipment" : "Edit Equipment"),
+    () =>
+      mode === "create" ? "Тоног төхөөрөмж нэмэх" : "Тоног төхөөрөмж засах",
     [mode],
   );
 
-  const submitLabel = mode === "create" ? "Create" : "Update";
+  const submitLabel = mode === "create" ? "Үүсгэх" : "Шинэчлэх";
 
   const validate = () => {
     const result = schema.safeParse(form);
@@ -229,11 +234,11 @@ export default function EquipmentModal({
         <Stack spacing={3}>
           <Stack spacing={2}>
             <Typography variant="subtitle1" fontWeight={800}>
-              Basic Info
+              Үндсэн мэдээлэл
             </Typography>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               <TextField
-                label="Name"
+                label="Нэр"
                 fullWidth
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -241,7 +246,7 @@ export default function EquipmentModal({
                 helperText={errors.name}
               />
               <TextField
-                label="Serial Number"
+                label="Сериал дугаар"
                 fullWidth
                 value={form.serialNo}
                 onChange={(e) => setForm({ ...form, serialNo: e.target.value })}
@@ -251,13 +256,13 @@ export default function EquipmentModal({
             </Stack>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               <TextField
-                label="Brand"
+                label="Брэнд"
                 fullWidth
                 value={form.brand}
                 onChange={(e) => setForm({ ...form, brand: e.target.value })}
               />
               <TextField
-                label="Model"
+                label="Модель"
                 fullWidth
                 value={form.model}
                 onChange={(e) => setForm({ ...form, model: e.target.value })}
@@ -265,7 +270,7 @@ export default function EquipmentModal({
             </Stack>
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               <TextField
-                label="Manufactured Year"
+                label="Үйлдвэрлэсэн он"
                 fullWidth
                 value={form.manufacturedYear}
                 onChange={(e) =>
@@ -275,7 +280,7 @@ export default function EquipmentModal({
                 helperText={errors.manufacturedYear}
               />
               <TextField
-                label="Commissioned Date"
+                label="Ашиглалтад орсон огноо"
                 type="date"
                 fullWidth
                 value={form.commissionedDate}
@@ -285,7 +290,7 @@ export default function EquipmentModal({
                 InputLabelProps={{ shrink: true }}
               />
               <TextField
-                label="End of Life Date"
+                label="Ашиглалтын дуусах огноо"
                 type="date"
                 fullWidth
                 value={form.endOfLifeDate}
@@ -298,7 +303,7 @@ export default function EquipmentModal({
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               <TextField
                 select
-                label="Category"
+                label="Ангилал"
                 fullWidth
                 value={form.category}
                 onChange={(e) =>
@@ -312,13 +317,13 @@ export default function EquipmentModal({
               >
                 {Object.values(EquipmentCategory).map((value) => (
                   <MenuItem key={value} value={value}>
-                    {value}
+                    {formatEquipmentCategory(value)}
                   </MenuItem>
                 ))}
               </TextField>
               <TextField
                 select
-                label="State"
+                label="Төлөв"
                 fullWidth
                 value={form.state}
                 onChange={(e) =>
@@ -329,13 +334,13 @@ export default function EquipmentModal({
               >
                 {Object.values(EquipmentState).map((value) => (
                   <MenuItem key={value} value={value}>
-                    {value}
+                    {formatEquipmentState(value)}
                   </MenuItem>
                 ))}
               </TextField>
               <TextField
                 select
-                label="Hospital"
+                label="Эмнэлэг"
                 fullWidth
                 value={form.hospitalId}
                 onChange={(e) =>
@@ -355,10 +360,10 @@ export default function EquipmentModal({
 
           <Stack spacing={2}>
             <Typography variant="subtitle1" fontWeight={800}>
-              Documents
+              Баримт бичиг
             </Typography>
             <TextField
-              label="Passport"
+              label="Паспорт"
               fullWidth
               value={form.passportDocument}
               onChange={(e) =>
@@ -366,7 +371,7 @@ export default function EquipmentModal({
               }
             />
             <TextField
-              label="Usage Manual"
+              label="Ашиглалтын заавар"
               fullWidth
               value={form.usageManualDocument}
               onChange={(e) =>
@@ -374,7 +379,7 @@ export default function EquipmentModal({
               }
             />
             <TextField
-              label="Calibration / Adjustment Instruction"
+              label="Тохируулга / калибровкын заавар"
               fullWidth
               value={form.calibrationInstructionDocument}
               onChange={(e) =>
@@ -388,10 +393,10 @@ export default function EquipmentModal({
 
           <Stack spacing={2}>
             <Typography variant="subtitle1" fontWeight={800}>
-              Maintenance & Spare Parts
+              Засвар үйлчилгээ ба сэлбэг
             </Typography>
             <TextField
-              label="Maintenance Plan"
+              label="Засвар үйлчилгээний төлөвлөгөө"
               fullWidth
               multiline
               minRows={3}
@@ -402,7 +407,7 @@ export default function EquipmentModal({
             />
             <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
               <TextField
-                label="Required Parts"
+                label="Шаардлагатай сэлбэг"
                 fullWidth
                 multiline
                 minRows={2}
@@ -412,7 +417,7 @@ export default function EquipmentModal({
                 }
               />
               <TextField
-                label="Used Parts"
+                label="Ашигласан сэлбэг"
                 fullWidth
                 multiline
                 minRows={2}
@@ -422,7 +427,7 @@ export default function EquipmentModal({
                 }
               />
               <TextField
-                label="Stock / Availability"
+                label="Үлдэгдэл / бэлэн байдал"
                 fullWidth
                 multiline
                 minRows={2}
@@ -438,7 +443,7 @@ export default function EquipmentModal({
 
       <DialogActions>
         <Button onClick={onClose} disabled={loading}>
-          Cancel
+          Болих
         </Button>
         <Button
           onClick={handleSubmit}

@@ -16,6 +16,12 @@ import DetailMetricCard from "@/components/detail/DetailMetricCard";
 import DetailPageShell from "@/components/detail/DetailPageShell";
 import DetailSectionCard from "@/components/detail/DetailSectionCard";
 import {
+  formatEquipmentCategory,
+  formatEquipmentLogStatus,
+  formatEquipmentLogType,
+  formatEquipmentState,
+} from "@/features/equipment/display";
+import {
   EquipmentDetailDocument,
   type EquipmentDetailQuery,
   type EquipmentDetailQueryVariables,
@@ -34,11 +40,11 @@ type EquipmentLog = NonNullable<
 >;
 
 const formatDate = (value?: unknown) => {
-  if (!value) return "Not registered";
+  if (!value) return "Бүртгэгдээгүй";
   const date = new Date(String(value));
-  if (Number.isNaN(date.getTime())) return "Not registered";
+  if (Number.isNaN(date.getTime())) return "Бүртгэгдээгүй";
 
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("mn-MN", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -96,29 +102,36 @@ function HistoryList({
               </Typography>
               <Chip
                 size="small"
-                label={log.status ?? log.type ?? "Log"}
+                label={
+                  log.status
+                    ? formatEquipmentLogStatus(log.status)
+                    : formatEquipmentLogType(log.type)
+                }
                 variant="outlined"
               />
             </Stack>
             <Typography variant="caption" color="text.secondary">
-              {formatDateTime(log.createdAt)} by{" "}
-              {log.performedBy?.name ?? "Unknown"}
+              {formatDateTime(log.createdAt)} -{" "}
+              {log.performedBy?.name ?? "Тодорхойгүй"}
             </Typography>
             {showFaultFields ? (
               <>
                 <Divider />
                 <DetailFactGrid
                   items={[
-                    { label: "Fault Date", value: formatDate(log.faultDate) },
                     {
-                      label: "Problem",
+                      label: "Гэмтэл гарсан огноо",
+                      value: formatDate(log.faultDate),
+                    },
+                    {
+                      label: "Асуудал",
                       value: formatNullable(log.problem),
                     },
                     {
-                      label: "Repair Action",
+                      label: "Засварын арга хэмжээ",
                       value: formatNullable(log.repairAction),
                     },
-                    { label: "Status", value: formatNullable(log.status) },
+                    { label: "Төлөв", value: formatNullable(log.status) },
                   ]}
                 />
               </>
@@ -157,59 +170,59 @@ export default function EquipmentDetailContainer({
   return (
     <AbilityGuard action="read" subject={subject}>
       {loading ? (
-        <StateView title="Loading equipment details..." loading />
+        <StateView title="Тоног төхөөрөмжийн мэдээлэл уншиж байна..." loading />
       ) : error ? (
         <StateView
-          title="Unable to load equipment details"
+          title="Тоног төхөөрөмжийн мэдээлэл ачаалахад алдаа гарлаа"
           description={error.message}
         />
       ) : !equipment ? (
         <StateView
-          title="Equipment not found"
-          description="The requested equipment record does not exist or you do not have permission to view it."
+          title="Тоног төхөөрөмж олдсонгүй"
+          description="Хүссэн тоног төхөөрөмж байхгүй эсвэл харах эрх хүрэлцэхгүй байна."
         />
       ) : (
         <DetailPageShell
-          title={equipment.name ?? "Equipment Detail"}
-          subtitle="Current device information, documents, maintenance plan, history, breakdown records, and spare parts in one place."
-          typeLabel={equipment.category ?? "Equipment"}
+          title={equipment.name ?? "Тоног төхөөрөмжийн дэлгэрэнгүй"}
+          subtitle="Төхөөрөмжийн үндсэн мэдээлэл, баримт бичиг, засвар үйлчилгээ, үзлэг тохируулга, гэмтлийн түүх болон сэлбэгийн мэдээллийг нэг дор харуулна."
+          typeLabel={formatEquipmentCategory(equipment.category)}
           meta={[
-            `Serial: ${formatNullable(equipment.serialNo)}`,
-            `Updated: ${formatDateTime(equipment.updatedAt)}`,
-            `Created: ${formatDateTime(equipment.createdAt)}`,
+            `Сериал: ${formatNullable(equipment.serialNo)}`,
+            `Шинэчлэгдсэн: ${formatDateTime(equipment.updatedAt)}`,
+            `Бүртгэсэн: ${formatDateTime(equipment.createdAt)}`,
           ]}
           aside={
             <>
               <DetailMetricCard
-                label="Current State"
-                value={equipment.state ?? "Unknown"}
+                label="Одоогийн төлөв"
+                value={formatEquipmentState(equipment.state)}
                 tone={currentStatusTone(equipment.state)}
               />
               <DetailMetricCard
-                label="History Records"
+                label="Түүхийн бичлэг"
                 value={String(equipmentLogs.length)}
                 tone="default"
               />
-              <DetailSectionCard title="Quick Info" eyebrow="Overview">
+              <DetailSectionCard title="Товч мэдээлэл" eyebrow="Тойм">
                 <Stack spacing={1.5}>
                   <Chip
                     icon={<LocalHospitalRoundedIcon />}
-                    label={`Hospital: ${equipment.hospital?.name ?? "Not assigned"}`}
+                    label={`Эмнэлэг: ${equipment.hospital?.name ?? "Томилоогүй"}`}
                     variant="outlined"
                   />
                   <Chip
                     icon={<PersonRoundedIcon />}
-                    label={`Assigned: ${equipment.assignedTo?.name ?? "Not assigned"}`}
+                    label={`Хариуцагч: ${equipment.assignedTo?.name ?? "Томилоогүй"}`}
                     variant="outlined"
                   />
                   <Chip
                     icon={<BuildRoundedIcon />}
-                    label={`Maintenance logs: ${maintenanceLogs.length}`}
+                    label={`Засварын түүх: ${maintenanceLogs.length}`}
                     variant="outlined"
                   />
                   <Chip
                     icon={<Inventory2RoundedIcon />}
-                    label={`Spare parts: ${formatNullable(equipment.sparePartsStock)}`}
+                    label={`Сэлбэг: ${formatNullable(equipment.sparePartsStock)}`}
                     variant="outlined"
                   />
                 </Stack>
@@ -217,46 +230,46 @@ export default function EquipmentDetailContainer({
             </>
           }
         >
-          <DetailSectionCard title="Basic Info" eyebrow="Equipment">
+          <DetailSectionCard title="Үндсэн мэдээлэл" eyebrow="Тоног төхөөрөмж">
             <DetailFactGrid
               items={[
-                { label: "Brand", value: formatNullable(equipment.brand) },
-                { label: "Model", value: formatNullable(equipment.model) },
+                { label: "Брэнд", value: formatNullable(equipment.brand) },
+                { label: "Модель", value: formatNullable(equipment.model) },
                 {
-                  label: "Serial Number",
+                  label: "Сериал дугаар",
                   value: formatNullable(equipment.serialNo),
                 },
                 {
-                  label: "Manufactured Year",
+                  label: "Үйлдвэрлэсэн он",
                   value: equipment.manufacturedYear
                     ? String(equipment.manufacturedYear)
-                    : "Not registered",
+                    : "Бүртгэгдээгүй",
                 },
                 {
-                  label: "Commissioned Date",
+                  label: "Ашиглалтад орсон огноо",
                   value: formatDate(equipment.commissionedDate),
                 },
                 {
-                  label: "End of Life Date",
+                  label: "Ашиглалтын дуусах огноо",
                   value: formatDate(equipment.endOfLifeDate),
                 },
               ]}
             />
           </DetailSectionCard>
 
-          <DetailSectionCard title="Documents" eyebrow="Files">
+          <DetailSectionCard title="Баримт бичиг" eyebrow="Файл">
             <DetailFactGrid
               items={[
                 {
-                  label: "Passport",
+                  label: "Паспорт",
                   value: formatNullable(equipment.passportDocument),
                 },
                 {
-                  label: "Usage Manual",
+                  label: "Ашиглалтын заавар",
                   value: formatNullable(equipment.usageManualDocument),
                 },
                 {
-                  label: "Calibration / Adjustment Instruction",
+                  label: "Тохируулга / калибровкын заавар",
                   value: formatNullable(
                     equipment.calibrationInstructionDocument,
                   ),
@@ -265,81 +278,84 @@ export default function EquipmentDetailContainer({
             />
           </DetailSectionCard>
 
-          <DetailSectionCard title="Maintenance" eyebrow="Plan & History">
+          <DetailSectionCard
+            title="Засвар үйлчилгээ"
+            eyebrow="Төлөвлөгөө ба түүх"
+          >
             <Stack spacing={2}>
               <DetailFactGrid
                 items={[
                   {
-                    label: "Maintenance Plan",
+                    label: "Засвар үйлчилгээний төлөвлөгөө",
                     value: formatNullable(equipment.maintenancePlan),
                   },
                 ]}
               />
               <HistoryList
                 logs={maintenanceLogs}
-                emptyText="No maintenance history has been logged for this equipment yet."
+                emptyText="Энэ тоног төхөөрөмжид засвар үйлчилгээний түүх бүртгэгдээгүй байна."
               />
             </Stack>
           </DetailSectionCard>
 
           <DetailSectionCard
-            title="Inspection & Calibration"
-            eyebrow="Quality Control"
+            title="Үзлэг ба тохируулга"
+            eyebrow="Чанарын хяналт"
           >
             <Stack spacing={2}>
               <Typography variant="subtitle2" fontWeight={800}>
-                Inspection History
+                Үзлэгийн түүх
               </Typography>
               <HistoryList
                 logs={inspectionLogs}
-                emptyText="No inspection history has been logged for this equipment yet."
+                emptyText="Энэ тоног төхөөрөмжид үзлэгийн түүх бүртгэгдээгүй байна."
               />
               <Typography variant="subtitle2" fontWeight={800}>
-                Calibration History
+                Тохируулгын түүх
               </Typography>
               <HistoryList
                 logs={calibrationLogs}
-                emptyText="No calibration history has been logged for this equipment yet."
+                emptyText="Энэ тоног төхөөрөмжид тохируулгын түүх бүртгэгдээгүй байна."
               />
             </Stack>
           </DetailSectionCard>
 
-          <DetailSectionCard title="Breakdown / Fault History" eyebrow="Faults">
+          <DetailSectionCard title="Эвдрэл / гэмтлийн түүх" eyebrow="Гэмтэл">
             <HistoryList
               logs={faultLogs}
-              emptyText="No breakdown or fault history has been logged for this equipment yet."
+              emptyText="Энэ тоног төхөөрөмжид эвдрэл эсвэл гэмтлийн түүх бүртгэгдээгүй байна."
               showFaultFields
             />
           </DetailSectionCard>
 
-          <DetailSectionCard title="Spare Parts" eyebrow="Inventory">
+          <DetailSectionCard title="Сэлбэг хэрэгсэл" eyebrow="Агуулах">
             <DetailFactGrid
               items={[
                 {
-                  label: "Required Parts",
+                  label: "Шаардлагатай сэлбэг",
                   value: formatNullable(equipment.requiredParts),
                 },
                 {
-                  label: "Used Parts",
+                  label: "Ашигласан сэлбэг",
                   value: formatNullable(equipment.usedParts),
                 },
                 {
-                  label: "Stock / Availability",
+                  label: "Үлдэгдэл / бэлэн байдал",
                   value: formatNullable(equipment.sparePartsStock),
                 },
               ]}
             />
           </DetailSectionCard>
 
-          <DetailSectionCard title="Documents Note" eyebrow="Control">
+          <DetailSectionCard title="Баримтын тайлбар" eyebrow="Хяналт">
             <Alert
               icon={<DescriptionRoundedIcon />}
               severity="info"
               sx={{ borderRadius: "0.75rem" }}
             >
-              Document fields currently store document names or URLs. Upload
-              storage can be added later without changing the detail page
-              structure.
+              Баримтын талбарууд одоогоор файлын нэр эсвэл холбоос хадгална.
+              Дараа нь файл upload хийх хадгалалтыг энэ дэлгэцийн бүтцийг
+              өөрчлөхгүйгээр нэмж болно.
             </Alert>
           </DetailSectionCard>
         </DetailPageShell>

@@ -12,6 +12,10 @@ import {
 } from "@mui/material";
 
 import TableSkeleton from "@/components/forms/table/tableSkeleton";
+import {
+  formatEquipmentLogStatus,
+  formatEquipmentLogType,
+} from "@/features/equipment/display";
 import type { EquipmentLogsQuery } from "@/generated/hooks";
 
 type EquipmentLogListProps = {
@@ -58,12 +62,12 @@ export default function EquipmentLogList({
         >
           <TableHead>
             <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Equipment</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Performed By</TableCell>
-              <TableCell>Details</TableCell>
-              <TableCell align="right">Action</TableCell>
+              <TableCell>Огноо</TableCell>
+              <TableCell>Тоног төхөөрөмж</TableCell>
+              <TableCell>Төрөл</TableCell>
+              <TableCell>Гүйцэтгэсэн</TableCell>
+              <TableCell>Дэлгэрэнгүй</TableCell>
+              <TableCell align="right">Үйлдэл</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -72,7 +76,7 @@ export default function EquipmentLogList({
             ) : logs.count === 0 ? (
               <TableRow>
                 <TableCell colSpan={columnCount} align="center" sx={{ py: 4 }}>
-                  No equipment logs found
+                  Тоног төхөөрөмжийн лог олдсонгүй
                 </TableCell>
               </TableRow>
             ) : (
@@ -80,7 +84,7 @@ export default function EquipmentLogList({
                 <TableRow key={log.id}>
                   <TableCell>
                     {log.createdAt
-                      ? new Date(log.createdAt).toLocaleString()
+                      ? new Date(log.createdAt).toLocaleString("mn-MN")
                       : "-"}
                   </TableCell>
                   <TableCell>
@@ -91,11 +95,14 @@ export default function EquipmentLogList({
                   </TableCell>
                   <TableCell>
                     <Stack spacing={0.75} alignItems="flex-start">
-                      <Chip size="small" label={log.type ?? "GENERAL"} />
+                      <Chip
+                        size="small"
+                        label={formatEquipmentLogType(log.type)}
+                      />
                       {log.status ? (
                         <Chip
                           size="small"
-                          label={log.status}
+                          label={formatEquipmentLogStatus(log.status)}
                           variant="outlined"
                         />
                       ) : null}
@@ -105,14 +112,14 @@ export default function EquipmentLogList({
                   <TableCell>
                     <Stack spacing={0.5}>
                       <span>{log.description ?? "-"}</span>
-                      {log.problem ? <span>Problem: {log.problem}</span> : null}
+                      {log.problem ? <span>Асуудал: {log.problem}</span> : null}
                       {log.repairAction ? (
-                        <span>Repair: {log.repairAction}</span>
+                        <span>Засвар: {log.repairAction}</span>
                       ) : null}
                       {log.faultDate ? (
                         <span>
-                          Fault date:{" "}
-                          {new Date(log.faultDate).toLocaleDateString()}
+                          Гэмтлийн огноо:{" "}
+                          {new Date(log.faultDate).toLocaleDateString("mn-MN")}
                         </span>
                       ) : null}
                     </Stack>
@@ -135,7 +142,7 @@ export default function EquipmentLogList({
         onRowsPerPageChange={(e) =>
           onRowsPerPageChange(parseInt(e.target.value, 10))
         }
-        labelRowsPerPage="Rows per page:"
+        labelRowsPerPage="Хуудасны тоо:"
         labelDisplayedRows={({ from, to, count }) => `${from}-${to} / ${count}`}
       />
     </Paper>

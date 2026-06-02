@@ -1,4 +1,5 @@
 "use client";
+
 import { useMutation } from "@apollo/client/react";
 import { debounce } from "lodash";
 import { useParams, useRouter } from "next/navigation";
@@ -19,9 +20,6 @@ import { useAbility } from "@/lib/casl/useAbility";
 
 import EquipmentModal from "../components/equipment.modal";
 import EquipmentListTable from "../components/euipment.list";
-
-// import CreateStaffModal from "../components/modal/staff.modal";
-// import StaffListTable from "../components/staff.list";
 
 export default function EquipmentContainer() {
   const { data: session } = useSession();

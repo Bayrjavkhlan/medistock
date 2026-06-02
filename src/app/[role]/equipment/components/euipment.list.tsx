@@ -17,6 +17,10 @@ import {
 } from "@mui/material";
 
 import TableSkeleton from "@/components/forms/table/tableSkeleton";
+import {
+  formatEquipmentCategory,
+  formatEquipmentState,
+} from "@/features/equipment/display";
 import type { EquipmentsQuery } from "@/generated/graphql";
 
 type EquipmentListTableProps = {
@@ -30,8 +34,6 @@ type EquipmentListTableProps = {
   onDelete: (id: string) => void;
   canUpdate: boolean;
   canDelete: boolean;
-  // sortBy: { field: UserSortField; order: EnumSortOrder };
-  // onSort: (field: UserSortField, order: EnumSortOrder) => void;
   loading: boolean;
 };
 
@@ -46,11 +48,10 @@ export default function EquipmentListTable({
   onDelete,
   canUpdate,
   canDelete,
-  // sortBy,
-  // onSort,
   loading,
 }: EquipmentListTableProps) {
   const columnCount = 7;
+
   return (
     <Paper
       sx={{
@@ -98,12 +99,14 @@ export default function EquipmentListTable({
               equipments.data?.map((equipment) => (
                 <TableRow key={equipment.id}>
                   <TableCell>{equipment.name ?? "-"}</TableCell>
-                  <TableCell>{equipment.category ?? "-"}</TableCell>
+                  <TableCell>
+                    {formatEquipmentCategory(equipment.category)}
+                  </TableCell>
                   <TableCell>{equipment.serialNo ?? "-"}</TableCell>
                   <TableCell>
                     <Box>
                       <Typography variant="body2" fontWeight={600}>
-                        {equipment.hospital?.name ?? "Эмнэлэг бүртгэлгүй"}
+                        {equipment.hospital?.name ?? "Эмнэлэг бүртгэгдээгүй"}
                       </Typography>
                       {equipment.hospital?.email ? (
                         <Typography variant="caption" color="text.secondary">
@@ -133,9 +136,9 @@ export default function EquipmentListTable({
                       ) : null}
                     </Box>
                   </TableCell>
-                  <TableCell>{equipment.state ?? "-"}</TableCell>
+                  <TableCell>{formatEquipmentState(equipment.state)}</TableCell>
                   <TableCell align="right">
-                    <Tooltip title="View details">
+                    <Tooltip title="Дэлгэрэнгүй харах">
                       <IconButton
                         size="small"
                         onClick={() => {
@@ -192,7 +195,7 @@ export default function EquipmentListTable({
           onRowsPerPageChange(parseInt(e.target.value, 10))
         }
         labelRowsPerPage="Хуудасны тоо:"
-        labelDisplayedRows={({ from, to, count }) => `${from}–${to} / ${count}`}
+        labelDisplayedRows={({ from, to, count }) => `${from}-${to} / ${count}`}
       />
     </Paper>
   );
