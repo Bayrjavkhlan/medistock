@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 
 import SortableTableHeader from "@/components/forms/table/sortableTableHeader";
-import StyledTableHeadCell from "@/components/forms/table/styledTableHeader";
 import TableSkeleton from "@/components/forms/table/tableSkeleton";
 import type { StaffSortField } from "@/constants/types";
 import type { Membership } from "@/generated/graphql";
@@ -105,10 +104,10 @@ export default function StaffListTable({
                   );
                 }}
               />
-              <StyledTableHeadCell>Утас</StyledTableHeadCell>
-              <StyledTableHeadCell>Байгууллага</StyledTableHeadCell>
-              <StyledTableHeadCell>Үүрэг</StyledTableHeadCell>
-              <StyledTableHeadCell align="right">Үйлдэл</StyledTableHeadCell>
+              <TableCell>Утас</TableCell>
+              <TableCell>Байгууллага</TableCell>
+              <TableCell>Үүрэг</TableCell>
+              <TableCell align="right">Үйлдэл</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

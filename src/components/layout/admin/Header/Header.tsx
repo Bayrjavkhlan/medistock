@@ -11,7 +11,6 @@ import { useSession } from "next-auth/react";
 import React from "react";
 
 import Profile from "@/components/core/Profile";
-import LogoutButton from "@/components/features/auth/components/LogoutButton";
 import { useActiveOrganization } from "@/hooks/useActiveOrganization";
 import { usePageTitle } from "@/utils/getPageTitle";
 
@@ -38,8 +37,6 @@ export default function Header({
 
   const { data: session } = useSession();
   const { activeOrganization } = useActiveOrganization();
-  // const { memberships, activeOrganization, setActiveOrganization } =
-  //   useActiveOrganization();
   const pageTitle = usePageTitle();
 
   return (
@@ -108,7 +105,6 @@ export default function Header({
               </Select>
             </FormControl>
           )} */}
-          <LogoutButton />
           <Profile
             username={session?.user?.name ?? undefined}
             role={activeOrganization?.role}
