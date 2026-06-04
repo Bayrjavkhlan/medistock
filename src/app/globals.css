@@ -5,6 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --radius: 0.75rem;
   /* --primary-color: theme("colors.primary.500") !important;
   --primary-100-color: theme("colors.primary.100") !important;
   --primary-400-color: theme("colors.primary.400") !important;

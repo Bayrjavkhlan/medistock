@@ -75,7 +75,7 @@ export default function ReportsPage() {
           <label className="space-y-2">
             <span className="text-sm font-bold text-slate-700">Төхөөрөмж</span>
             <select
-              className="rounded-xl w-full border border-slate-300 px-3 py-2"
+              className="w-full rounded-xl border border-slate-300 px-3 py-2"
               value={deviceSlug}
               onChange={(event) =>
                 setDeviceSlug(event.target.value as typeof deviceSlug)
@@ -94,7 +94,7 @@ export default function ReportsPage() {
               Тайлангийн төрөл
             </span>
             <select
-              className="rounded-xl w-full border border-slate-300 px-3 py-2"
+              className="w-full rounded-xl border border-slate-300 px-3 py-2"
               value={period}
               onChange={(event) =>
                 setPeriod(event.target.value as typeof period)
@@ -110,7 +110,7 @@ export default function ReportsPage() {
         </div>
 
         <button
-          className="rounded-xl mt-5 bg-teal-700 px-5 py-2.5 text-sm font-bold text-white transition-colors duration-150 hover:bg-teal-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500 active:bg-teal-900 disabled:opacity-60 disabled:hover:bg-teal-700"
+          className="mt-5 rounded-xl bg-teal-700 px-5 py-2.5 text-sm font-bold text-white transition-colors duration-150 hover:bg-teal-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500 active:bg-teal-900 disabled:opacity-60 disabled:hover:bg-teal-700"
           disabled={loading}
           onClick={handleGenerate}
           type="button"
@@ -127,7 +127,7 @@ export default function ReportsPage() {
             {lastReport.fileName}
           </p>
           <button
-            className="rounded-xl mt-3 bg-white px-4 py-2 text-sm font-bold text-emerald-800 transition-colors duration-150 hover:bg-emerald-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 active:bg-emerald-200"
+            className="mt-3 rounded-xl bg-white px-4 py-2 text-sm font-bold text-emerald-800 transition-colors duration-150 hover:bg-emerald-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 active:bg-emerald-200"
             onClick={() =>
               downloadPdf(lastReport.fileName, lastReport.pdfBase64)
             }

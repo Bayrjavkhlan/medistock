@@ -149,7 +149,7 @@ export default function ImagingAnalyticsDashboard({
               {analytics.hospital} / {analytics.department}
             </p>
           </div>
-          <div className="rounded-xl flex border border-slate-200 bg-slate-50 p-1">
+          <div className="flex rounded-xl border border-slate-200 bg-slate-50 p-1">
             {periodOptions.map((option) => (
               <button
                 key={option.value}

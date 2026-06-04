@@ -126,7 +126,7 @@ export default function PredictiveMaintenancePage() {
             </div>
 
             <Link
-              className="rounded-xl mt-4 inline-flex bg-teal-700 px-4 py-2 text-sm font-bold text-white transition-colors duration-150 hover:bg-teal-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500 active:bg-teal-900"
+              className="mt-4 inline-flex rounded-xl bg-teal-700 px-4 py-2 text-sm font-bold text-white transition-colors duration-150 hover:bg-teal-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500 active:bg-teal-900"
               href={
                 device.deviceSlug === "definium-656"
                   ? `/${params.role}/analytics/definium-656`
