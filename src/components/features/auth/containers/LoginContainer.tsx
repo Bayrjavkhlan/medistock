@@ -19,7 +19,6 @@ export default function LoginContainer() {
     >
       <AuthCard
         title="Нэвтрэх"
-        subtitle="Medistock системд аюулгүй нэвтэрч ажлаа үргэлжлүүлнэ үү."
         icon={<MonitorHeartOutlined sx={{ fontSize: 50, color: "white" }} />}
       >
         <LoginForm
