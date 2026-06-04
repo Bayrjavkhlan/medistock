@@ -70,13 +70,13 @@ function StatCard({
   icon: ElementType;
 }) {
   return (
-    <div className="shadow-sm rounded-lg border border-slate-200 bg-white p-4">
+    <div className="shadow-sm rounded-xl border border-slate-200 bg-white p-4">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-sm text-slate-500">{label}</p>
           <p className="mt-1 text-2xl font-bold text-slate-900">{value}</p>
         </div>
-        <div className="rounded-lg bg-teal-50 p-2 text-teal-700">
+        <div className="rounded-xl bg-teal-50 p-2 text-teal-700">
           <Icon fontSize="small" />
         </div>
       </div>
@@ -92,7 +92,7 @@ function ChartCard({
   children: ReactNode;
 }) {
   return (
-    <div className="shadow-sm rounded-lg border border-slate-200 bg-white p-4">
+    <div className="shadow-sm rounded-xl border border-slate-200 bg-white p-4">
       <h3 className="text-base font-bold text-slate-900">{title}</h3>
       <div className="mt-4 h-72">{children}</div>
     </div>
@@ -136,7 +136,7 @@ export default function ImagingAnalyticsDashboard({
 
   return (
     <div className="space-y-6">
-      <div className="shadow-sm rounded-lg border border-slate-200 bg-white p-5">
+      <div className="shadow-sm rounded-xl border border-slate-200 bg-white p-5">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase text-teal-700">
@@ -149,14 +149,14 @@ export default function ImagingAnalyticsDashboard({
               {analytics.hospital} / {analytics.department}
             </p>
           </div>
-          <div className="flex rounded-lg border border-slate-200 bg-slate-50 p-1">
+          <div className="rounded-xl flex border border-slate-200 bg-slate-50 p-1">
             {periodOptions.map((option) => (
               <button
                 key={option.value}
-                className={`rounded-md px-3 py-2 text-sm font-semibold ${
+                className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors duration-150 ${
                   period === option.value
-                    ? "shadow-sm bg-white text-teal-700"
-                    : "text-slate-500"
+                    ? "shadow-sm bg-white text-teal-700 hover:bg-teal-50 active:bg-teal-100"
+                    : "text-slate-500 hover:bg-white hover:text-slate-700 active:bg-slate-100"
                 }`}
                 onClick={() => setPeriod(option.value)}
                 type="button"
@@ -193,7 +193,7 @@ export default function ImagingAnalyticsDashboard({
 
       <div className="grid gap-4 lg:grid-cols-3">
         <div
-          className={`rounded-lg border p-4 ${toneClass(analytics.health.level)}`}
+          className={`rounded-xl border p-4 ${toneClass(analytics.health.level)}`}
         >
           <div className="flex items-center gap-2">
             <WarningAmberRoundedIcon fontSize="small" />
@@ -208,7 +208,7 @@ export default function ImagingAnalyticsDashboard({
             ))}
           </ul>
         </div>
-        <div className="shadow-sm rounded-lg border border-slate-200 bg-white p-4 lg:col-span-2">
+        <div className="shadow-sm rounded-xl border border-slate-200 bg-white p-4 lg:col-span-2">
           <h2 className="text-lg font-bold text-slate-900">
             Ачааллын онцлох үзүүлэлт
           </h2>
@@ -292,7 +292,7 @@ export default function ImagingAnalyticsDashboard({
         </ChartCard>
       </div>
 
-      <div className="shadow-sm rounded-lg border border-slate-200 bg-white p-4">
+      <div className="shadow-sm rounded-xl border border-slate-200 bg-white p-4">
         <div className="flex items-center gap-2">
           <AutoFixHighRoundedIcon className="text-teal-700" fontSize="small" />
           <h2 className="text-lg font-bold text-slate-900">
@@ -303,7 +303,7 @@ export default function ImagingAnalyticsDashboard({
           {analytics.predictions.map((prediction) => (
             <div
               key={prediction.label}
-              className={`rounded-lg border p-4 ${toneClass(prediction.riskLevel)}`}
+              className={`rounded-xl border p-4 ${toneClass(prediction.riskLevel)}`}
             >
               <div className="flex items-start justify-between gap-3">
                 <h3 className="font-bold">{prediction.label}</h3>

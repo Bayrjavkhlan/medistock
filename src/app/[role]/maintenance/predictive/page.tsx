@@ -50,7 +50,7 @@ export default function PredictiveMaintenancePage() {
 
   return (
     <div className="space-y-6">
-      <div className="shadow-sm rounded-lg border border-slate-200 bg-white p-5">
+      <div className="shadow-sm rounded-xl border border-slate-200 bg-white p-5">
         <p className="text-sm font-semibold uppercase text-teal-700">
           Predictive Maintenance
         </p>
@@ -67,7 +67,7 @@ export default function PredictiveMaintenancePage() {
         {devices.map((device) => (
           <div
             key={device.deviceSlug}
-            className="shadow-sm rounded-lg border border-slate-200 bg-white p-5"
+            className="shadow-sm rounded-xl border border-slate-200 bg-white p-5"
           >
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
@@ -86,17 +86,17 @@ export default function PredictiveMaintenancePage() {
             </div>
 
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-lg bg-slate-50 p-3">
+              <div className="rounded-xl bg-slate-50 p-3">
                 <p className="text-xs text-slate-500">Нийт зураг / скан</p>
                 <p className="text-xl font-bold">{device.stats.totalImages}</p>
               </div>
-              <div className="rounded-lg bg-slate-50 p-3">
+              <div className="rounded-xl bg-slate-50 p-3">
                 <p className="text-xs text-slate-500">Ажилласан цаг</p>
                 <p className="text-xl font-bold">
                   {device.stats.estimatedOperatingHours}
                 </p>
               </div>
-              <div className="rounded-lg bg-slate-50 p-3">
+              <div className="rounded-xl bg-slate-50 p-3">
                 <p className="text-xs text-slate-500">Ашиглалт</p>
                 <p className="text-xl font-bold">
                   {device.stats.utilizationPercentage}%
@@ -108,7 +108,7 @@ export default function PredictiveMaintenancePage() {
               {device.predictions.map((prediction) => (
                 <div
                   key={prediction.label}
-                  className={`rounded-lg border p-3 ${toneClass(prediction.riskLevel)}`}
+                  className={`rounded-xl border p-3 ${toneClass(prediction.riskLevel)}`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <p className="font-bold">{prediction.label}</p>
@@ -126,7 +126,7 @@ export default function PredictiveMaintenancePage() {
             </div>
 
             <Link
-              className="mt-4 inline-flex rounded-lg bg-teal-700 px-4 py-2 text-sm font-bold text-white"
+              className="rounded-xl mt-4 inline-flex bg-teal-700 px-4 py-2 text-sm font-bold text-white transition-colors duration-150 hover:bg-teal-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500 active:bg-teal-900"
               href={
                 device.deviceSlug === "definium-656"
                   ? `/${params.role}/analytics/definium-656`

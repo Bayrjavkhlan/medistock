@@ -281,19 +281,19 @@ export default function EquipmentDetailContainer({
                 }}
               >
                 <Link
-                  className="rounded-lg border border-teal-200 bg-teal-50 p-4 font-bold text-teal-800"
+                  className="rounded-xl border border-teal-200 bg-teal-50 p-4 font-bold text-teal-800 transition-colors duration-150 hover:border-teal-300 hover:bg-teal-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500 active:border-teal-400 active:bg-teal-200"
                   href={`/${params.role}/analytics/${analyticsSlug}`}
                 >
                   Ачаалал ба ашиглалтын аналитик
                 </Link>
                 <Link
-                  className="rounded-lg border border-amber-200 bg-amber-50 p-4 font-bold text-amber-800"
+                  className="rounded-xl border border-amber-200 bg-amber-50 p-4 font-bold text-amber-800 transition-colors duration-150 hover:border-amber-300 hover:bg-amber-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 active:border-amber-400 active:bg-amber-200"
                   href={`/${params.role}/maintenance/predictive`}
                 >
                   Урьдчилан таамаглах засвар
                 </Link>
                 <Link
-                  className="rounded-lg border border-slate-200 bg-slate-50 p-4 font-bold text-slate-800"
+                  className="rounded-xl border border-slate-200 bg-slate-50 p-4 font-bold text-slate-800 transition-colors duration-150 hover:border-slate-300 hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 active:border-slate-400 active:bg-slate-200"
                   href={`/${params.role}/reports`}
                 >
                   PDF тайлан үүсгэх
