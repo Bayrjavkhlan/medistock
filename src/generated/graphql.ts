@@ -71,6 +71,22 @@ export type AdminMapLocationsPayload = {
   hospitals: Array<DashboardMapLocation>;
 };
 
+export type AnalyticsPoint = {
+  __typename?: "AnalyticsPoint";
+  label: Scalars["String"]["output"];
+  value: Scalars["Float"]["output"];
+};
+
+export type AnalyticsReportPayload = {
+  __typename?: "AnalyticsReportPayload";
+  createdAt: Scalars["DateTime"]["output"];
+  deviceName: Scalars["String"]["output"];
+  fileName: Scalars["String"]["output"];
+  id: Scalars["String"]["output"];
+  pdfBase64: Scalars["String"]["output"];
+  period: Scalars["String"]["output"];
+};
+
 export type AuthUser = {
   __typename?: "AuthUser";
   email?: Maybe<Scalars["String"]["output"]>;
@@ -196,6 +212,12 @@ export type DashboardStat = {
   label: Scalars["String"]["output"];
   tone?: Maybe<Scalars["String"]["output"]>;
   value: Scalars["Int"]["output"];
+};
+
+export type DeviceHealth = {
+  __typename?: "DeviceHealth";
+  level: Scalars["String"]["output"];
+  reasons: Array<Scalars["String"]["output"]>;
 };
 
 export type Drug = {
@@ -432,6 +454,33 @@ export type HospitalsWhereInput = {
   search?: InputMaybe<Scalars["String"]["input"]>;
 };
 
+export type ImagingDeviceAnalytics = {
+  __typename?: "ImagingDeviceAnalytics";
+  department: Scalars["String"]["output"];
+  deviceId: Scalars["String"]["output"];
+  deviceName: Scalars["String"]["output"];
+  deviceSlug: Scalars["String"]["output"];
+  health: DeviceHealth;
+  hospital: Scalars["String"]["output"];
+  period: Scalars["String"]["output"];
+  predictions: Array<RiskPrediction>;
+  recommendations: Array<Scalars["String"]["output"]>;
+  stats: ImagingUtilizationStats;
+  workload: WorkloadAnalysis;
+};
+
+export type ImagingUtilizationStats = {
+  __typename?: "ImagingUtilizationStats";
+  averageStudiesPerPatient: Scalars["Float"]["output"];
+  estimatedOperatingHours: Scalars["Float"]["output"];
+  imagesPerDay: Scalars["Float"]["output"];
+  imagesPerHour: Scalars["Float"]["output"];
+  imagesPerMonth: Scalars["Float"]["output"];
+  imagesPerWeek: Scalars["Float"]["output"];
+  totalImages: Scalars["Int"]["output"];
+  utilizationPercentage: Scalars["Float"]["output"];
+};
+
 export type LoginInput = {
   email: Scalars["String"]["input"];
   password: Scalars["String"]["input"];
@@ -494,6 +543,7 @@ export type Mutation = {
   equipmentLogDelete?: Maybe<Scalars["Boolean"]["output"]>;
   equipmentLogUpdate?: Maybe<Scalars["Boolean"]["output"]>;
   equipmentUpdate?: Maybe<Scalars["Boolean"]["output"]>;
+  generateAnalyticsReport?: Maybe<AnalyticsReportPayload>;
   hospitalCreate?: Maybe<Scalars["Boolean"]["output"]>;
   hospitalDelete?: Maybe<Scalars["Boolean"]["output"]>;
   hospitalUpdate?: Maybe<Scalars["Boolean"]["output"]>;
@@ -573,6 +623,11 @@ export type MutationEquipmentLogUpdateArgs = {
 export type MutationEquipmentUpdateArgs = {
   id: Scalars["String"]["input"];
   input: EquipmentCreateInput;
+};
+
+export type MutationGenerateAnalyticsReportArgs = {
+  deviceSlug: Scalars["String"]["input"];
+  period?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type MutationHospitalCreateArgs = {
@@ -779,6 +834,11 @@ export type Pharmacys = {
   data?: Maybe<Array<Pharmacy>>;
 };
 
+export type PredictiveMaintenanceDashboard = {
+  __typename?: "PredictiveMaintenanceDashboard";
+  devices: Array<ImagingDeviceAnalytics>;
+};
+
 export type Query = {
   __typename?: "Query";
   adminMapLocations?: Maybe<AdminMapLocationsPayload>;
@@ -795,12 +855,14 @@ export type Query = {
   hospitalDetail?: Maybe<Hospital>;
   hospitalOption: Array<HospitalOption>;
   hospitals?: Maybe<Hospitals>;
+  imagingDeviceAnalytics?: Maybe<ImagingDeviceAnalytics>;
   me?: Maybe<MePayload>;
   memberships?: Maybe<Memberships>;
   pharmacies?: Maybe<Pharmacys>;
   pharmacyDetail?: Maybe<Pharmacy>;
   pharmacyDrugs?: Maybe<PharmacyDrugs>;
   pharmacyOption: Array<PharmacyOption>;
+  predictiveMaintenance?: Maybe<PredictiveMaintenanceDashboard>;
   supplierDetail?: Maybe<Supplier>;
   supplierSupplyItems?: Maybe<SupplyItems>;
   suppliers?: Maybe<Suppliers>;
@@ -858,6 +920,11 @@ export type QueryHospitalsArgs = {
   skip: Scalars["Int"]["input"];
   take: Scalars["Int"]["input"];
   where?: InputMaybe<HospitalsWhereInput>;
+};
+
+export type QueryImagingDeviceAnalyticsArgs = {
+  deviceSlug: Scalars["String"]["input"];
+  period?: InputMaybe<Scalars["String"]["input"]>;
 };
 
 export type QueryMembershipsArgs = {
@@ -924,6 +991,14 @@ export type ResendOtpInput = {
 export type ResendOtpPayload = {
   __typename?: "ResendOtpPayload";
   message: Scalars["String"]["output"];
+};
+
+export type RiskPrediction = {
+  __typename?: "RiskPrediction";
+  label: Scalars["String"]["output"];
+  recommendation: Scalars["String"]["output"];
+  riskLevel: Scalars["String"]["output"];
+  riskScore: Scalars["Int"]["output"];
 };
 
 export type SignUpInput = {
@@ -1166,6 +1241,146 @@ export type VerifyOtpInput = {
 export type VerifyOtpPayload = {
   __typename?: "VerifyOtpPayload";
   message: Scalars["String"]["output"];
+};
+
+export type WorkloadAnalysis = {
+  __typename?: "WorkloadAnalysis";
+  busiestDay: Scalars["String"]["output"];
+  busiestHour: Scalars["String"]["output"];
+  daily: Array<AnalyticsPoint>;
+  hourly: Array<AnalyticsPoint>;
+  lowestOperatingHours: Array<Scalars["String"]["output"]>;
+  monthly: Array<AnalyticsPoint>;
+  peakOperatingHours: Array<Scalars["String"]["output"]>;
+  underutilizedPeriods: Array<Scalars["String"]["output"]>;
+  weekly: Array<AnalyticsPoint>;
+};
+
+export type ImagingDeviceAnalyticsQueryVariables = Exact<{
+  deviceSlug: Scalars["String"]["input"];
+  period?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type ImagingDeviceAnalyticsQuery = {
+  __typename?: "Query";
+  imagingDeviceAnalytics?: {
+    __typename?: "ImagingDeviceAnalytics";
+    deviceSlug: string;
+    deviceId: string;
+    deviceName: string;
+    hospital: string;
+    department: string;
+    period: string;
+    recommendations: Array<string>;
+    stats: {
+      __typename?: "ImagingUtilizationStats";
+      totalImages: number;
+      imagesPerHour: number;
+      imagesPerDay: number;
+      imagesPerWeek: number;
+      imagesPerMonth: number;
+      estimatedOperatingHours: number;
+      averageStudiesPerPatient: number;
+      utilizationPercentage: number;
+    };
+    workload: {
+      __typename?: "WorkloadAnalysis";
+      busiestHour: string;
+      busiestDay: string;
+      peakOperatingHours: Array<string>;
+      lowestOperatingHours: Array<string>;
+      underutilizedPeriods: Array<string>;
+      hourly: Array<{
+        __typename?: "AnalyticsPoint";
+        label: string;
+        value: number;
+      }>;
+      daily: Array<{
+        __typename?: "AnalyticsPoint";
+        label: string;
+        value: number;
+      }>;
+      weekly: Array<{
+        __typename?: "AnalyticsPoint";
+        label: string;
+        value: number;
+      }>;
+      monthly: Array<{
+        __typename?: "AnalyticsPoint";
+        label: string;
+        value: number;
+      }>;
+    };
+    health: {
+      __typename?: "DeviceHealth";
+      level: string;
+      reasons: Array<string>;
+    };
+    predictions: Array<{
+      __typename?: "RiskPrediction";
+      label: string;
+      riskScore: number;
+      riskLevel: string;
+      recommendation: string;
+    }>;
+  } | null;
+};
+
+export type PredictiveMaintenanceQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type PredictiveMaintenanceQuery = {
+  __typename?: "Query";
+  predictiveMaintenance?: {
+    __typename?: "PredictiveMaintenanceDashboard";
+    devices: Array<{
+      __typename?: "ImagingDeviceAnalytics";
+      deviceSlug: string;
+      deviceId: string;
+      deviceName: string;
+      hospital: string;
+      department: string;
+      period: string;
+      recommendations: Array<string>;
+      stats: {
+        __typename?: "ImagingUtilizationStats";
+        totalImages: number;
+        estimatedOperatingHours: number;
+        utilizationPercentage: number;
+      };
+      health: {
+        __typename?: "DeviceHealth";
+        level: string;
+        reasons: Array<string>;
+      };
+      predictions: Array<{
+        __typename?: "RiskPrediction";
+        label: string;
+        riskScore: number;
+        riskLevel: string;
+        recommendation: string;
+      }>;
+    }>;
+  } | null;
+};
+
+export type GenerateAnalyticsReportMutationVariables = Exact<{
+  deviceSlug: Scalars["String"]["input"];
+  period?: InputMaybe<Scalars["String"]["input"]>;
+}>;
+
+export type GenerateAnalyticsReportMutation = {
+  __typename?: "Mutation";
+  generateAnalyticsReport?: {
+    __typename?: "AnalyticsReportPayload";
+    id: string;
+    deviceName: string;
+    period: string;
+    fileName: string;
+    pdfBase64: string;
+    createdAt: any;
+  } | null;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -2465,6 +2680,473 @@ export type SupplierSupplyItemsQuery = {
   } | null;
 };
 
+export const ImagingDeviceAnalyticsDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "ImagingDeviceAnalytics" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "deviceSlug" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "period" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "imagingDeviceAnalytics" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "deviceSlug" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "deviceSlug" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "period" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "period" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "deviceSlug" } },
+                { kind: "Field", name: { kind: "Name", value: "deviceId" } },
+                { kind: "Field", name: { kind: "Name", value: "deviceName" } },
+                { kind: "Field", name: { kind: "Name", value: "hospital" } },
+                { kind: "Field", name: { kind: "Name", value: "department" } },
+                { kind: "Field", name: { kind: "Name", value: "period" } },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "stats" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "totalImages" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "imagesPerHour" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "imagesPerDay" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "imagesPerWeek" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "imagesPerMonth" },
+                      },
+                      {
+                        kind: "Field",
+                        name: {
+                          kind: "Name",
+                          value: "estimatedOperatingHours",
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: {
+                          kind: "Name",
+                          value: "averageStudiesPerPatient",
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "utilizationPercentage" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "workload" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "hourly" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "label" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "value" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "daily" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "label" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "value" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "weekly" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "label" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "value" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "monthly" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "label" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "value" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "busiestHour" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "busiestDay" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "peakOperatingHours" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "lowestOperatingHours" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "underutilizedPeriods" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "health" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "level" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "reasons" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "predictions" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      { kind: "Field", name: { kind: "Name", value: "label" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "riskScore" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "riskLevel" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "recommendation" },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "recommendations" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  ImagingDeviceAnalyticsQuery,
+  ImagingDeviceAnalyticsQueryVariables
+>;
+export const PredictiveMaintenanceDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "query",
+      name: { kind: "Name", value: "PredictiveMaintenance" },
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "predictiveMaintenance" },
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                {
+                  kind: "Field",
+                  name: { kind: "Name", value: "devices" },
+                  selectionSet: {
+                    kind: "SelectionSet",
+                    selections: [
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "deviceSlug" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "deviceId" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "deviceName" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "hospital" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "department" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "period" },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "stats" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "totalImages" },
+                            },
+                            {
+                              kind: "Field",
+                              name: {
+                                kind: "Name",
+                                value: "estimatedOperatingHours",
+                              },
+                            },
+                            {
+                              kind: "Field",
+                              name: {
+                                kind: "Name",
+                                value: "utilizationPercentage",
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "health" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "level" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "reasons" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "predictions" },
+                        selectionSet: {
+                          kind: "SelectionSet",
+                          selections: [
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "label" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "riskScore" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "riskLevel" },
+                            },
+                            {
+                              kind: "Field",
+                              name: { kind: "Name", value: "recommendation" },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "recommendations" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  PredictiveMaintenanceQuery,
+  PredictiveMaintenanceQueryVariables
+>;
+export const GenerateAnalyticsReportDocument = {
+  kind: "Document",
+  definitions: [
+    {
+      kind: "OperationDefinition",
+      operation: "mutation",
+      name: { kind: "Name", value: "GenerateAnalyticsReport" },
+      variableDefinitions: [
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "deviceSlug" },
+          },
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: { kind: "Name", value: "String" },
+            },
+          },
+        },
+        {
+          kind: "VariableDefinition",
+          variable: {
+            kind: "Variable",
+            name: { kind: "Name", value: "period" },
+          },
+          type: { kind: "NamedType", name: { kind: "Name", value: "String" } },
+        },
+      ],
+      selectionSet: {
+        kind: "SelectionSet",
+        selections: [
+          {
+            kind: "Field",
+            name: { kind: "Name", value: "generateAnalyticsReport" },
+            arguments: [
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "deviceSlug" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "deviceSlug" },
+                },
+              },
+              {
+                kind: "Argument",
+                name: { kind: "Name", value: "period" },
+                value: {
+                  kind: "Variable",
+                  name: { kind: "Name", value: "period" },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: "SelectionSet",
+              selections: [
+                { kind: "Field", name: { kind: "Name", value: "id" } },
+                { kind: "Field", name: { kind: "Name", value: "deviceName" } },
+                { kind: "Field", name: { kind: "Name", value: "period" } },
+                { kind: "Field", name: { kind: "Name", value: "fileName" } },
+                { kind: "Field", name: { kind: "Name", value: "pdfBase64" } },
+                { kind: "Field", name: { kind: "Name", value: "createdAt" } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  GenerateAnalyticsReportMutation,
+  GenerateAnalyticsReportMutationVariables
+>;
 export const LoginDocument = {
   kind: "Document",
   definitions: [

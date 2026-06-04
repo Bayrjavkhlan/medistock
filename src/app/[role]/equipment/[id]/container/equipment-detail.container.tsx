@@ -7,6 +7,8 @@ import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
 import LocalHospitalRoundedIcon from "@mui/icons-material/LocalHospitalRounded";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import { Alert, Box, Chip, Divider, Stack, Typography } from "@mui/material";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import AbilityGuard from "@/components/AbilityGuard";
@@ -60,6 +62,11 @@ const currentStatusTone = (state?: string | null) => {
 
 const logsByType = (logs: EquipmentLog[] | null | undefined, type: string) =>
   (logs ?? []).filter((log): log is EquipmentLog => !!log && log.type === type);
+
+const analyticsSlugByModel: Record<string, "definium-656" | "magnetom-aera"> = {
+  "Definium 656": "definium-656",
+  "MAGNETOM Aera": "magnetom-aera",
+};
 
 function HistoryList({
   logs,
@@ -147,6 +154,7 @@ export default function EquipmentDetailContainer({
   id,
 }: EquipmentDetailContainerProps) {
   const { data: session } = useSession();
+  const params = useParams<{ role: string }>();
   const portalRole = getPortalRole(session?.user ?? null, null);
   const subject = getEquipmentSubjectForRole(portalRole);
 
@@ -166,6 +174,9 @@ export default function EquipmentDetailContainer({
   const inspectionLogs = logsByType(equipmentLogs, "INSPECTION");
   const calibrationLogs = logsByType(equipmentLogs, "CALIBRATION");
   const faultLogs = logsByType(equipmentLogs, "FAULT");
+  const analyticsSlug = equipment?.model
+    ? analyticsSlugByModel[equipment.model]
+    : null;
 
   return (
     <AbilityGuard action="read" subject={subject}>
@@ -256,6 +267,40 @@ export default function EquipmentDetailContainer({
               ]}
             />
           </DetailSectionCard>
+
+          {analyticsSlug ? (
+            <DetailSectionCard
+              title="Аналитик ба урьдчилсан засвар"
+              eyebrow="AI"
+            >
+              <Box
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+                  gap: 2,
+                }}
+              >
+                <Link
+                  className="rounded-lg border border-teal-200 bg-teal-50 p-4 font-bold text-teal-800"
+                  href={`/${params.role}/analytics/${analyticsSlug}`}
+                >
+                  Ачаалал ба ашиглалтын аналитик
+                </Link>
+                <Link
+                  className="rounded-lg border border-amber-200 bg-amber-50 p-4 font-bold text-amber-800"
+                  href={`/${params.role}/maintenance/predictive`}
+                >
+                  Урьдчилан таамаглах засвар
+                </Link>
+                <Link
+                  className="rounded-lg border border-slate-200 bg-slate-50 p-4 font-bold text-slate-800"
+                  href={`/${params.role}/reports`}
+                >
+                  PDF тайлан үүсгэх
+                </Link>
+              </Box>
+            </DetailSectionCard>
+          ) : null}
 
           <DetailSectionCard title="Баримт бичиг" eyebrow="Файл">
             <DetailFactGrid
